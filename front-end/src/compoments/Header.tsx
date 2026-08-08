@@ -9,16 +9,18 @@ import Image from "next/image";
 import Link from "next/link";
 import burgerIcon from "../../public/burgerIcon.svg"
 import closeIcon from "../../public/closeIcon.svg"
+import { useLanguage } from "@/context/LanguageContext";
 
 
 const links = [
-    { href: "/", label: "Home" },
-    { href: "/contacts", label: "Contacts" },
-    { href: "/activities", label: "Activities" },
+    { href: "/", label: { en: "Home", lt: "Pagrindinis" } },
+    { href: "/contacts", label: { en: "Contacts", lt: "Kontaktai" } },
+    { href: "/activities", label: { en: "Activities", lt: "Veiklos" } },
 ];
 
 export function Header() {
     const [menuOpen, setMenuOpen] = useState(false);
+    const { lang, setLang } = useLanguage();
 
     const pathname = usePathname();
 
@@ -53,12 +55,12 @@ export function Header() {
                         alt="burger icon"
                         className="h-8 w-auto transition-transform active:scale-90"
                     />
-
-                <MobileMenu 
-                    menuOpen={menuOpen}
-                    links={links}
-                    onClose={() => setMenuOpen(false)}
-                />
+                    
+                    <MobileMenu
+                        menuOpen={menuOpen}
+                        links={links}
+                        onClose={() => setMenuOpen(false)}
+                    />
                 </button>
             ) : (
                 <button
@@ -73,24 +75,48 @@ export function Header() {
                 </button>
             )}
 
-            <nav className="flex gap-1 max-[550px]:hidden">
-                {links.map(({ href, label }) => {
-                    const active = pathname === href;
+            <div className="flex items-center gap-2 max-[550px]:hidden">
+                <nav className="flex gap-1 ">
+                    {links.map(({ href, label }) => {
+                        const active = pathname === href;
 
-                    return (
-                        <Link
-                            key={href}
-                            href={href}
-                            className={`rounded px-4 py-1.75 text-sm font-medium uppercase tracking-[0.08em] transition-all duration-150 ${active
-                                ? "bg-[#e8f4fb] font-bold text-[#0075b5]"
-                                : "text-[#404041] hover:bg-[#f2f2f2]"
-                                }`}
-                        >
-                            {label}
-                        </Link>
-                    );
-                })}
-            </nav>
+                        return (
+                            <Link
+                                key={href}
+                                href={href}
+                                className={`rounded px-4 py-1.75 text-sm font-medium uppercase tracking-[0.08em] transition-all duration-150 ${active
+                                    ? "bg-[#e8f4fb] font-bold text-[#0075b5]"
+                                    : "text-[#404041] hover:bg-[#f2f2f2]"
+                                    }`}
+                            >
+                                {label[lang]}
+                            </Link>
+                        );
+                    })}
+                </nav>
+                //TODO: FIX IT FOR PHONE
+                <div className="flex rounded-lg border border-zinc-300 bg-zinc-100 p-1">
+                    <button
+                        onClick={() => setLang("en")}
+                        className={`rounded-md px-3 py-1 text-xs font-bold transition-colors ${lang === "en"
+                            ? "bg-[#0075b5] text-white"
+                            : "text-[#404041]"
+                            }`}
+                    >
+                        EN
+                    </button>
+
+                    <button
+                        onClick={() => setLang("lt")}
+                        className={`rounded-md px-3 py-1 text-xs font-bold transition-colors ${lang === "lt"
+                            ? "bg-[#0075b5] text-white"
+                            : "text-[#404041]"
+                            }`}
+                    >
+                        LT
+                    </button>
+                </div>
+            </div>
 
         </header>
     );

@@ -1,5 +1,6 @@
 "use client";
 
+import { useLanguage } from "@/context/LanguageContext";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
@@ -11,7 +12,12 @@ type MobileMenuProps = {
 
 type NavLink = {
     href: string;
-    label: string;
+    label: labelLang;
+}
+
+type labelLang = {
+    en: string;
+    lt: string;
 }
 
 export function MobileMenu({
@@ -20,6 +26,7 @@ export function MobileMenu({
     onClose,
 }: MobileMenuProps) {
     const pathname = usePathname();
+    const { lang, setLang } = useLanguage();
 
     return (
         <nav
@@ -43,10 +50,11 @@ export function MobileMenu({
                                 : "bg-white text-[#404041] hover:bg-[#f2f2f2]"
                             }`}
                     >
-                        {label}   
+                        {label[lang]}
                     </Link>
                 );
             })}
         </nav>
+        
     );
 }
