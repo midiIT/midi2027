@@ -1,3 +1,4 @@
+import Link from "next/link"
 import logoMidiBlack from "../../public/MIDI-Logotipas.png"
 import logoVusaMif from "../../public/VUSAMIF.png"
 import Image from "next/image"
@@ -20,7 +21,11 @@ export function Footer() {
             <span className="text-sm font-semibold text-[#404041]/40">
                 © 2026 MIDI. All rights reserved.
             </span>
-            <div className="flex items-center justify-end gap-4">
+            <Link
+                href="https://mif.vusa.lt/lt"
+                target="_blank"
+                className="flex items-center gap-4"
+            >
                 <Image
                     src={logoVusaMif}
                     alt="VU SA MIF"
@@ -36,8 +41,7 @@ export function Footer() {
                         VU SA MIF
                     </span>
                 </div>
-            </div>
-
+            </Link>
         </footer>
     )
 }
