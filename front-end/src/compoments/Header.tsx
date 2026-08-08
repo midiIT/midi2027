@@ -1,9 +1,15 @@
 "use client";
 
 import { usePathname } from "next/navigation";
+import { useState } from "react";
+import { MobileMenu } from "./MobileMenu";
+
 import logoMidiBlack from "../../public/MIDI-Logotipas.png"
 import Image from "next/image";
 import Link from "next/link";
+import burgerIcon from "../../public/burgerIcon.svg"
+import closeIcon from "../../public/closeIcon.svg"
+
 
 const links = [
     { href: "/", label: "Home" },
@@ -12,6 +18,8 @@ const links = [
 ];
 
 export function Header() {
+    const [menuOpen, setMenuOpen] = useState(false);
+
     const pathname = usePathname();
 
     return (
@@ -35,7 +43,37 @@ export function Header() {
                 </div>
             </Link>
 
-            <nav className="flex gap-1">
+            {menuOpen ? (
+                <button
+                    className="min-[549px]:hidden"
+                    onClick={() => setMenuOpen(false)}
+                >
+                    <Image
+                        src={closeIcon}
+                        alt="burger icon"
+                        className="h-8 w-auto transition-transform active:scale-90"
+                    />
+
+                <MobileMenu 
+                    menuOpen={menuOpen}
+                    links={links}
+                    onClose={() => setMenuOpen(false)}
+                />
+                </button>
+            ) : (
+                <button
+                    className="min-[549px]:hidden"
+                    onClick={() => setMenuOpen(true)}
+                >
+                    <Image
+                        src={burgerIcon}
+                        alt="burger icon"
+                        className="h-8 w-auto transition-transform active:scale-90"
+                    />
+                </button>
+            )}
+
+            <nav className="flex gap-1 max-[550px]:hidden">
                 {links.map(({ href, label }) => {
                     const active = pathname === href;
 
@@ -44,8 +82,8 @@ export function Header() {
                             key={href}
                             href={href}
                             className={`rounded px-4 py-1.75 text-sm font-medium uppercase tracking-[0.08em] transition-all duration-150 ${active
-                                    ? "bg-[#e8f4fb] font-bold text-[#0075b5]"
-                                    : "text-[#404041] hover:bg-[#f2f2f2]"
+                                ? "bg-[#e8f4fb] font-bold text-[#0075b5]"
+                                : "text-[#404041] hover:bg-[#f2f2f2]"
                                 }`}
                         >
                             {label}
@@ -53,6 +91,7 @@ export function Header() {
                     );
                 })}
             </nav>
+
         </header>
     );
 }
