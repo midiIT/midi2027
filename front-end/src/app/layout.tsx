@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
+import { Header } from "@/compoments/Header";
 
 const dosis = localFont({
   src: [
@@ -51,6 +52,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="lt">
       <body className={`${dosis.className} min-h-screen antialiased`}>
+        <Header />
         {children}
       </body>
     </html>
