@@ -52,11 +52,15 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="lt">
-      <body className={`${dosis.className} min-h-screen antialiased`}>
-        <Header />
-        {children}
+      <body className={`${dosis.className} min-h-screen`}>
+        <div className="flex min-h-screen flex-col">
+          <main className="flex-1 pt-17">
+            {children}
+          </main>
 
-        <Footer />
+          <Footer />
+        </div>
+        <Header />
       </body>
     </html>
   );
