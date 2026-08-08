@@ -94,7 +94,7 @@ export function Header() {
                         );
                     })}
                 </nav>
-                //TODO: FIX IT FOR PHONE
+    
                 <div className="flex rounded-lg border border-zinc-300 bg-zinc-100 p-1">
                     <button
                         onClick={() => setLang("en")}
