@@ -8,7 +8,7 @@ export default function Home() {
     <div className="relative min-h-200 max-[700px]:min-h-200 overflow-hidden bg-[#0075b5]">
       <div
         className="
-        pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 select-none whitespace-nowrap text-[clamp(180px,28vw,380px)] font-extrabold leading-none tracking-[-0.04em] text-transparent [-webkit-text-stroke:1px_rgba(255,255,255,0.08)]
+        pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 select-none whitespace-nowrap text-[clamp(180px,28vw,380px)] font-extrabold leading-none tracking-[-0.04em] text-transparent [-webkit-text-stroke:1px_rgba(255,255,255,0.12)]
         "
       >
         MIDI
