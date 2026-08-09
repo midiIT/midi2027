@@ -7,9 +7,9 @@ import { text } from "@/app/not-foundText"
 import { useLanguage } from "@/context/LanguageContext";
 
 export default function NotFound() {
-
     const { lang } = useLanguage();
     const t = text[lang];
+    
     return (
         <div className="flex min-h-[calc(100vh-4.25rem)] flex-col">
             <div className="flex flex-1 items-center justify-between px-12 max-[700px]:flex-col max-[700px]:justify-center max-[700px]:gap-12">
