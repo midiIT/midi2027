@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
-import { Header } from "@/compoments/Header";
-import { Footer } from "@/compoments/Footer";
+import { Header } from "@/compoments/Header/Header";
+import { Footer } from "@/compoments/Footer/Footer";
 import { LanguageProvider } from "@/context/LanguageContext";
 
 const dosis = localFont({

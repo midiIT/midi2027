@@ -1,9 +1,16 @@
+"use client";
+
 import Link from "next/link"
-import logoMidiBlack from "../../public/MIDI-Logotipas.png"
-import logoVusaMif from "../../public/VUSAMIF.png"
+import logoMidiBlack from "../../../public/MIDI-Logotipas.png"
+import logoVusaMif from "../../../public/VUSAMIF.png"
 import Image from "next/image"
+import { useLanguage } from "@/context/LanguageContext";
+import { text } from "@/compoments/Footer/FooterText"
 
 export function Footer() {
+    const { lang } = useLanguage();
+    const t = text[lang];
+
     return (
         <footer className="border-t border-[#dcdcdc] bg-[#f2f2f2]">
             <div
@@ -18,12 +25,12 @@ export function Footer() {
                     />
                     <div className="flex flex-col">
                         <span className="text-sm font-semibold text-[#404041]/60">
-                            Matematikų ir Informatikų Dienos
+                            {t.title}
                         </span>
                     </div>
                 </div>
                 <span className="text-center text-sm text-[#404041]/40 min-[530px]:max-[669px]:justify-self-end">
-                    © 2026 MIDI. All rights reserved.
+                    {t.copyright}
                 </span>
                 <Link
                     href="https://mif.vusa.lt/lt"
@@ -38,7 +45,7 @@ export function Footer() {
 
                     <div className="flex flex-col">
                         <span className="text-sm text-[#404041]/40">
-                            Organised by
+                            {t.organisedBy}
                         </span>
 
                         <span className="text-sm font-semibold text-[#404041]/60">
