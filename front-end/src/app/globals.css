@@ -27,3 +27,47 @@ html {
   animation: none;
   box-shadow: 0 6px 32px rgba(0, 0, 0, 0.3);
 }
+
+.contact-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.contact-field > span {
+  color: rgba(64, 64, 65, 0.55);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+}
+
+.contact-field input,
+.contact-field select,
+.contact-field textarea {
+  width: 100%;
+  border: 1px solid #dcdcdc;
+  border-radius: 0.375rem;
+  background: white;
+  padding: 0.9rem 1rem;
+  color: #404041;
+  outline: none;
+  transition: border-color 150ms ease, box-shadow 150ms ease;
+}
+
+.contact-field textarea {
+  min-height: 9rem;
+  resize: vertical;
+}
+
+.contact-field input::placeholder,
+.contact-field textarea::placeholder {
+  color: rgba(64, 64, 65, 0.3);
+}
+
+.contact-field input:focus,
+.contact-field select:focus,
+.contact-field textarea:focus {
+  border-color: #0075b5;
+  box-shadow: 0 0 0 3px rgba(0, 117, 181, 0.1);
+}
