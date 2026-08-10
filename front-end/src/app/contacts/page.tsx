@@ -132,7 +132,7 @@ export default function ContactsPage() {
       ...t.cards.facebook,
     },
     {
-      href: "https://www.linkedin.com/company/midi.lt",
+      href: "https://www.linkedin.com/company/midi-lt/",
       icon: <SocialMark>in</SocialMark>,
       ...t.cards.linkedin,
     },
