@@ -122,17 +122,17 @@ export default function ContactsPage() {
       ...t.cards.email,
     },
     {
-      href: "https://instagram.com/midi_dienos",
+      href: "https://www.instagram.com/midi.lt/",
       icon: <InstagramIcon />,
       ...t.cards.instagram,
     },
     {
-      href: "https://facebook.com",
+      href: "https://www.facebook.com/midi.lt",
       icon: <SocialMark>f</SocialMark>,
       ...t.cards.facebook,
     },
     {
-      href: "https://linkedin.com",
+      href: "https://www.linkedin.com/company/midi.lt",
       icon: <SocialMark>in</SocialMark>,
       ...t.cards.linkedin,
     },
