@@ -44,17 +44,17 @@ export const text: Record<Lang, ContactsPageText> = {
       instagram: {
         title: "Instagram",
         description: "Follow our updates, event highlights, and behind-the-scenes.",
-        handle: "@midi_dienos",
+        handle: "@midi.lt",
       },
       facebook: {
         title: "Facebook",
         description: "Event announcements and community discussions.",
-        handle: "MIDI Dienos",
+        handle: "MIDI",
       },
       linkedin: {
         title: "LinkedIn",
         description: "Professional network — connect with our organisation.",
-        handle: "MIDI Organisation",
+        handle: "MIDI",
       },
       tiktok: {
         title: "TikTok",
@@ -91,17 +91,17 @@ export const text: Record<Lang, ContactsPageText> = {
       instagram: {
         title: "Instagram",
         description: "Sekite naujienas, renginio akimirkas ir pasiruošimo užkulisius.",
-        handle: "@midi_dienos",
+        handle: "@midi.lt",
       },
       facebook: {
         title: "Facebook",
         description: "Renginių pranešimai ir bendruomenės diskusijos.",
-        handle: "MIDI Dienos",
+        handle: "MIDI",
       },
       linkedin: {
         title: "LinkedIn",
         description: "Profesinis tinklas ir ryšys su mūsų organizacija.",
-        handle: "MIDI Organisation",
+        handle: "MIDI",
       },
       tiktok: {
         title: "TikTok",
