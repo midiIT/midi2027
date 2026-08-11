@@ -1,6 +1,7 @@
 ﻿"use client";
 
 import { useState, useEffect } from 'react';
+import Image from "next/image";
 import { SLIDES } from '@/app/pageSlides';
 import { useLanguage } from '@/context/LanguageContext';
 import { aboutText } from './AboutText';
@@ -18,8 +19,8 @@ export default function HistorySlideshow() {
         setFlash(true);
         setTimeout(() => {
             setIndex(newIndex);
-            setTimeout(() => setFlash(false), 400);
-        }, 400);
+            setTimeout(() => setFlash(false), 300);
+        }, 300);
     };
 
     const goPrev = () => changeSlide(index === 0 ? slides.length - 1 : index - 1);
@@ -40,11 +41,14 @@ export default function HistorySlideshow() {
             </p>
 
             <div className="relative rounded-md overflow-hidden h-[460px] bg-black">
-                <img
+                <Image
                     key={slide.year}
                     src={slide.img}
                     alt={slide.alt}
-                    className={`absolute inset-0 w-full h-full object-cover ${slide.bw ? 'grayscale' : ''}`}
+                    fill
+                    loading="eager"
+                    sizes="(max-width: 1100px) 100vw, 1100px"
+                    className={`object-cover ${slide.bw ? 'grayscale' : ''}`}
                 />
 
                 <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent pointer-events-none" />

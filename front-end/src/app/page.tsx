@@ -1,6 +1,6 @@
 "use client";
 
-import logoMidiWhite from "../../public/MIDI-Logotipas-baltas.png";
+import logoMidiWhite from "../../public/logos/MIDI-Logotipas-baltas.png";
 import Image from "next/image";
 import { text } from "@/app/pageText";
 import { useLanguage } from "@/context/LanguageContext";

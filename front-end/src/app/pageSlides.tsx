@@ -1,10 +1,10 @@
 ﻿import { Lang } from "@/context/LanguageContext";
 
-const img1976 = '/img1976.png';
-const img1989 = '/img1989.png';
-const img1993 = '/img1993.jpg';
-const img1997 = '/img1997.jpg';
-const img1999 = '/img1999.jpg';
+const img1976 = '/history/img1976.png';
+const img1989 = '/history/img1989.png';
+const img1993 = '/history/img1993.jpg';
+const img1997 = '/history/img1997.jpg';
+const img1999 = '/history/img1999.jpg';
 
 type Slide = {
     year: string;
