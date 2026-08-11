@@ -70,14 +70,14 @@ export default function HistorySlideshow() {
                 <button
                     onClick={goPrev}
                     aria-label="Previous slide"
-                    className="absolute left-6 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-black/40 text-white text-lg hover:bg-black/60 transition-colors z-30"
+                    className="absolute left-6 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-black/40 text-white text-lg cursor-pointer hover:bg-black/70 hover:scale-110 active:scale-95 transition-all z-30"
                 >
                     ‹
                 </button>
                 <button
                     onClick={goNext}
                     aria-label="Next slide"
-                    className="absolute right-6 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-black/40 text-white text-lg hover:bg-black/60 transition-colors z-30"
+                    className="absolute right-6 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-black/40 text-white text-lg cursor-pointer hover:bg-black/70 hover:scale-110 active:scale-95 transition-all z-30"
                 >
                     ›
                 </button>
@@ -89,7 +89,7 @@ export default function HistorySlideshow() {
                         <button
                             key={s.year}
                             onClick={() => changeSlide(i)}
-                            className={`flex flex-col items-start gap-2 text-sm font-bold transition-colors ${
+                            className={`flex flex-col items-start gap-2 text-sm font-bold cursor-pointer transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0075b5] focus-visible:ring-offset-2 rounded-sm ${
                                 i === index ? 'text-[#0075b5]' : 'text-[#333]/40 hover:text-[#333]/70'
                             }`}
                         >
