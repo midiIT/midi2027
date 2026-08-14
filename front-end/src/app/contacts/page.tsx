@@ -1,12 +1,13 @@
 "use client";
 
-import type { FormEvent, ReactNode } from "react";
+import type { FormEvent } from "react";
 import { useLanguage } from "@/context/LanguageContext";
 import { text } from "@/app/contacts/pageText";
+import Image from "next/image";
 
 type ContactCardProps = {
   href: string;
-  icon: ReactNode;
+  iconPath: string;
   title: string;
   description: string;
   handle: string;
@@ -14,7 +15,7 @@ type ContactCardProps = {
 
 function ContactCard({
   href,
-  icon,
+  iconPath,
   title,
   description,
   handle,
@@ -26,13 +27,30 @@ function ContactCard({
       href={href}
       target={external ? "_blank" : undefined}
       rel={external ? "noreferrer" : undefined}
-      className="group flex min-h-64 flex-col rounded-[10px] border border-[#dcdcdc] bg-white px-7 py-8 shadow-[0_2px_8px_rgba(0,0,0,0.05)] transition-all duration-200 hover:-translate-y-1 hover:border-[#0075b5]/35 hover:shadow-[0_10px_30px_rgba(0,117,181,0.12)] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#0075b5]"
+      className="group flex min-h-64 flex-col rounded-[10px] border border-[#dcdcdc] bg-white px-7 py-8 shadow-[0_2px_8px_rgba(0,0,0,0.05)] transition-all duration-200 
+      hover:-translate-y-1
+    hover:border-[#0075b5]/70
+      hover:ring-2 
+    hover:ring-[#0075b5] 
+      hover:shadow-[0_10px_30px_rgba(0,117,181,0.12)] 
+      
+      focus-visible:outline-none 
+      focus-visible:ring-2 
+      focus-visible:ring-[#0075b5]"
     >
-      <span className="flex h-12 w-12 items-center justify-center rounded-lg bg-[#f2f2f2] text-[#404041]">
-        {icon}
+      <span className="flex h-12 w-12 items-center justify-center rounded-lg bg-[#f2f2f2]">
+        <Image
+          src={iconPath}
+          alt=""
+          width={24}
+          height={24}
+          className="h-6 w-6 object-contain"
+        />
       </span>
 
-      <h2 className="mt-7 text-xl font-bold text-[#404041]">{title}</h2>
+      <h2 className="mt-7 text-xl font-bold text-[#404041] group-hover:text-[#0075b5]">
+        {title}
+      </h2>
       <p className="mt-2 max-w-72 text-[15px] leading-6 text-[#404041]/55">
         {description}
       </p>
@@ -45,51 +63,11 @@ function ContactCard({
           →
         </span>
       </span>
+      
     </a>
   );
 }
 
-function MailIcon() {
-  return (
-    <svg aria-hidden="true" viewBox="0 0 24 24" className="h-5 w-5" fill="none">
-      <path d="M4 6.5h16v11H4z" stroke="currentColor" strokeWidth="1.8" />
-      <path d="m5 8 7 5 7-5" stroke="currentColor" strokeWidth="1.8" />
-    </svg>
-  );
-}
-
-function InstagramIcon() {
-  return (
-    <svg aria-hidden="true" viewBox="0 0 24 24" className="h-5 w-5" fill="none">
-      <rect x="4.5" y="4.5" width="15" height="15" rx="4" stroke="currentColor" strokeWidth="1.8" />
-      <circle cx="12" cy="12" r="3.3" stroke="currentColor" strokeWidth="1.8" />
-      <circle cx="17" cy="7" r="1" fill="currentColor" />
-    </svg>
-  );
-}
-
-function TikTokIcon() {
-  return (
-    <svg aria-hidden="true" viewBox="0 0 24 24" className="h-5 w-5" fill="none">
-      <path
-        d="M14.5 4v10.2a4.2 4.2 0 1 1-3.1-4.05"
-        stroke="currentColor"
-        strokeWidth="1.9"
-        strokeLinecap="round"
-      />
-      <path
-        d="M14.5 4c.45 2.3 1.9 3.75 4.5 4.1"
-        stroke="currentColor"
-        strokeWidth="1.9"
-        strokeLinecap="round"
-      />
-    </svg>
-  );
-}
-
-function SocialMark({ children }: { children: ReactNode }) {
-  return <span aria-hidden="true" className="text-base font-extrabold">{children}</span>;
-}
 
 export default function ContactsPage() {
   const { lang } = useLanguage();
@@ -118,27 +96,27 @@ export default function ContactsPage() {
   const contacts = [
     {
       href: "mailto:info@midi.lt",
-      icon: <MailIcon />,
+      iconPath: "/icons/mailIcon.svg",
       ...t.cards.email,
     },
     {
       href: "https://www.instagram.com/midi.lt/",
-      icon: <InstagramIcon />,
+      iconPath: "/icons/instagramIcon.svg",
       ...t.cards.instagram,
     },
     {
       href: "https://www.facebook.com/midi.lt",
-      icon: <SocialMark>f</SocialMark>,
+      iconPath: "/icons/facebookIcon.svg",
       ...t.cards.facebook,
     },
     {
       href: "https://www.linkedin.com/company/midi-lt/",
-      icon: <SocialMark>in</SocialMark>,
+      iconPath: "/icons/linkedinIcon.svg",
       ...t.cards.linkedin,
     },
     {
       href: "https://www.tiktok.com/@midi.lt",
-      icon: <TikTokIcon />,
+      iconPath: "/icons/tiktokIcon.svg",
       ...t.cards.tiktok,
     },
   ];
@@ -150,7 +128,7 @@ export default function ContactsPage() {
           <p className="text-xs font-semibold uppercase tracking-[0.22em] text-white/55">
             {t.eyebrow}
           </p>
-          <h1 className="mt-5 max-w-145 text-[clamp(2.4rem,5vw,4.25rem)] font-extrabold leading-[1.04] tracking-[-0.025em]">
+          <h1 className="mt-5 max-w-145 text-[clamp(2.4rem,5vw,4.25rem)] font-extrabold leading-[1.04] tracking-tight">
             {t.title}
           </h1>
           <p className="mt-6 max-w-175 text-base leading-7 text-white/65 sm:text-lg">
