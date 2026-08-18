@@ -1,9 +1,11 @@
 "use client";
 
-import type { FormEvent } from "react";
+import Image from "next/image";
+import { useState } from "react";
 import { useLanguage } from "@/context/LanguageContext";
 import { text } from "@/app/contacts/pageText";
-import Image from "next/image";
+
+type Brand = "email" | "instagram" | "facebook" | "linkedin" | "tiktok";
 
 type ContactCardProps = {
   href: string;
@@ -11,15 +13,18 @@ type ContactCardProps = {
   title: string;
   description: string;
   handle: string;
+  brand: Brand;
 };
 
-function ContactCard({
-  href,
-  iconPath,
-  title,
-  description,
-  handle,
-}: ContactCardProps) {
+const brandHover: Record<Brand, string> = {
+  email: "hover:border-[#0075b5] hover:bg-[#0075b5]",
+  instagram: "hover:border-[#c13584] hover:bg-[linear-gradient(135deg,#833ab4,#e1306c,#f77737)]",
+  facebook: "hover:border-[#1877f2] hover:bg-[#1877f2]",
+  linkedin: "hover:border-[#0a66c2] hover:bg-[#0a66c2]",
+  tiktok: "hover:border-[#111111] hover:bg-[#111111]",
+};
+
+function ContactCard({ href, iconPath, title, description, handle, brand }: ContactCardProps) {
   const external = href.startsWith("http");
 
   return (
@@ -27,170 +32,124 @@ function ContactCard({
       href={href}
       target={external ? "_blank" : undefined}
       rel={external ? "noreferrer" : undefined}
-      className="group flex min-h-64 flex-col rounded-[10px] border border-[#dcdcdc] bg-white px-7 py-8 shadow-[0_2px_8px_rgba(0,0,0,0.05)] transition-all duration-200 
-      hover:-translate-y-1
-    hover:border-[#0075b5]/70
-      hover:ring-2 
-    hover:ring-[#0075b5] 
-      hover:shadow-[0_10px_30px_rgba(0,117,181,0.12)] 
-      
-      focus-visible:outline-none 
-      focus-visible:ring-2 
-      focus-visible:ring-[#0075b5]"
+      className={`group flex min-h-64 flex-col rounded-[10px] border border-[#dcdcdc] bg-white px-7 py-8 shadow-[0_2px_8px_rgba(0,0,0,0.05)] transition-all duration-300 hover:-translate-y-1 hover:text-white hover:shadow-[0_14px_36px_rgba(0,0,0,0.16)] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#0075b5] ${brandHover[brand]}`}
     >
-      <span className="flex h-12 w-12 items-center justify-center rounded-lg bg-[#f2f2f2]">
+      <span className="flex h-12 w-12 items-center justify-center rounded-lg bg-[#f2f2f2] transition-colors duration-300 group-hover:bg-white/15">
         <Image
           src={iconPath}
           alt=""
           width={24}
           height={24}
-          className="h-6 w-6 object-contain"
+          className="h-6 w-6 object-contain transition-[filter] duration-300 group-hover:brightness-0 group-hover:invert"
         />
       </span>
-
-      <h2 className="mt-7 text-xl font-bold text-[#404041] group-hover:text-[#0075b5]">
+      <h2 className="mt-7 text-xl font-bold text-[#404041] transition-colors duration-300 group-hover:text-white">
         {title}
       </h2>
-      <p className="mt-2 max-w-72 text-[15px] leading-6 text-[#404041]/55">
+      <p className="mt-2 max-w-72 text-[15px] leading-6 text-[#404041]/55 transition-colors duration-300 group-hover:text-white/75">
         {description}
       </p>
-      <span className="mt-auto pt-6 text-sm font-semibold text-[#0075b5]">
+      <span className="mt-auto pt-6 text-sm font-semibold text-[#0075b5] transition-colors duration-300 group-hover:text-white">
         {handle}
-        <span
-          aria-hidden="true"
-          className="ml-1 inline-block transition-transform duration-200 group-hover:translate-x-1"
-        >
+        <span aria-hidden="true" className="ml-1 inline-block transition-transform duration-200 group-hover:translate-x-1">
           →
         </span>
       </span>
-      
     </a>
   );
 }
 
+function AnimatedStat({ value, label }: { value: number; label: string }) {
+  return (
+    <div className="text-center sm:text-left">
+      <div className="text-[clamp(2.75rem,5vw,4.5rem)] font-extrabold leading-none tracking-[-0.04em] text-white">
+        {value}+
+      </div>
+      <div className="mt-3 text-[10px] font-bold uppercase tracking-[0.2em] text-white/45 sm:text-xs">
+        {label}
+      </div>
+    </div>
+  );
+}
 
 export default function ContactsPage() {
   const { lang } = useLanguage();
   const t = text[lang];
-
-  function handleSubmit(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-
-    const formData = new FormData(event.currentTarget);
-    const organisation = String(formData.get("organisation") ?? "");
-    const email = String(formData.get("email") ?? "");
-    const enquiryType = String(formData.get("enquiryType") ?? "");
-    const message = String(formData.get("message") ?? "");
-    const subject = `${t.emailSubject}: ${organisation}`;
-    const body = [
-      `${t.form.organisation}: ${organisation}`,
-      `${t.form.email}: ${email}`,
-      `${t.form.type}: ${enquiryType}`,
-      "",
-      message,
-    ].join("\n");
-
-    window.location.href = `mailto:info@midi.lt?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-  }
+  const [openFaq, setOpenFaq] = useState<number | null>(null);
 
   const contacts = [
-    {
-      href: "mailto:info@midi.lt",
-      iconPath: "/icons/mailIcon.svg",
-      ...t.cards.email,
-    },
-    {
-      href: "https://www.instagram.com/midi.lt/",
-      iconPath: "/icons/instagramIcon.svg",
-      ...t.cards.instagram,
-    },
-    {
-      href: "https://www.facebook.com/midi.lt",
-      iconPath: "/icons/facebookIcon.svg",
-      ...t.cards.facebook,
-    },
-    {
-      href: "https://www.linkedin.com/company/midi-lt/",
-      iconPath: "/icons/linkedinIcon.svg",
-      ...t.cards.linkedin,
-    },
-    {
-      href: "https://www.tiktok.com/@midi.lt",
-      iconPath: "/icons/tiktokIcon.svg",
-      ...t.cards.tiktok,
-    },
+    { href: "mailto:info@midi.lt", iconPath: "/icons/mailIcon.svg", brand: "email" as const, ...t.cards.email },
+    { href: "https://www.instagram.com/midi.lt/", iconPath: "/icons/instagramIcon.svg", brand: "instagram" as const, ...t.cards.instagram },
+    { href: "https://www.facebook.com/midi.lt", iconPath: "/icons/facebookIcon.svg", brand: "facebook" as const, ...t.cards.facebook },
+    { href: "https://www.linkedin.com/company/midi-lt/", iconPath: "/icons/linkedinIcon.svg", brand: "linkedin" as const, ...t.cards.linkedin },
+    { href: "https://www.tiktok.com/@midi.lt", iconPath: "/icons/tiktokIcon.svg", brand: "tiktok" as const, ...t.cards.tiktok },
   ];
 
   return (
     <div className="bg-white text-[#404041]">
-      <section className="bg-[#007dbb] px-6 pb-32 pt-14 text-white sm:px-10 lg:px-16 lg:pb-36 lg:pt-16">
-        <div className="mx-auto max-w-295">
-          <p className="text-xs font-semibold uppercase tracking-[0.22em] text-white/55">
-            {t.eyebrow}
-          </p>
-          <h1 className="mt-5 max-w-145 text-[clamp(2.4rem,5vw,4.25rem)] font-extrabold leading-[1.04] tracking-tight">
+      <section className="relative overflow-hidden bg-[#087eb8] text-white">
+        <div aria-hidden="true" className="pointer-events-none absolute left-[34%] top-25 whitespace-nowrap text-[clamp(9rem,24vw,23rem)] font-extrabold leading-none tracking-[-0.06em] text-transparent [-webkit-text-stroke:2px_rgba(255,255,255,0.08)]">
+          {t.watermark}
+        </div>
+
+        <div className="relative mx-auto max-w-295 px-6 pb-14 pt-16 sm:px-10 sm:pb-18 sm:pt-20 lg:px-16 xl:px-0">
+          <p className="text-xs font-semibold uppercase tracking-[0.25em] text-white/55">{t.eyebrow}</p>
+          <h1 className="mt-6 max-w-235 text-[clamp(3rem,7vw,6.875rem)] font-extrabold leading-[0.98] tracking-[-0.035em]">
             {t.title}
           </h1>
-          <p className="mt-6 max-w-175 text-base leading-7 text-white/65 sm:text-lg">
-            {t.intro}
-          </p>
+          <p className="mt-7 max-w-175 text-base leading-7 text-white/65 sm:text-lg">{t.intro}</p>
+        </div>
+
+        <div className="relative border-t border-white/15">
+          <div className="mx-auto grid max-w-295 grid-cols-2 gap-x-8 gap-y-10 px-6 py-12 sm:px-10 md:grid-cols-4 md:py-14 lg:px-16 xl:px-0">
+            {t.stats.map((stat) => <AnimatedStat key={stat.label} value={stat.value} label={stat.label} />)}
+          </div>
         </div>
       </section>
 
-      <section className="relative z-10 mx-auto -mt-16 grid max-w-295 grid-cols-1 gap-4 px-6 sm:px-10 md:grid-cols-2 lg:grid-cols-3 lg:gap-5 lg:px-16 xl:px-0">
-        {contacts.map((contact) => (
-          <ContactCard key={contact.title} {...contact} />
-        ))}
+      <section className="px-6 py-18 sm:px-10 sm:py-22 lg:px-16 lg:py-24">
+        <div className="mx-auto max-w-295">
+          <p className="mb-10 text-xs font-bold uppercase tracking-[0.25em] text-[#0075b5]">{t.channelsEyebrow}</p>
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3 lg:gap-5">
+            {contacts.map((contact) => <ContactCard key={contact.title} {...contact} />)}
+          </div>
+        </div>
       </section>
 
-      <div className="mx-auto flex max-w-295 items-center gap-5 px-6 pb-12 pt-20 sm:px-10 lg:px-16 lg:pt-24 xl:px-0">
-        <span className="h-px flex-1 bg-[#dcdcdc]" />
-        <span className="shrink-0 text-[11px] font-semibold uppercase tracking-[0.22em] text-[#404041]/35">
-          {t.divider}
-        </span>
-        <span className="h-px flex-1 bg-[#dcdcdc]" />
-      </div>
-
-      <section className="mx-auto max-w-230 px-6 pb-24 sm:px-10 lg:pb-28">
-        <p className="mb-8 text-xs font-bold uppercase tracking-[0.2em] text-[#0075b5]">
-          {t.form.title}
-        </p>
-
-        <form onSubmit={handleSubmit} className="grid grid-cols-1 gap-x-5 gap-y-6 sm:grid-cols-2">
-          <label className="contact-field">
-            <span>{t.form.organisation}</span>
-            <input name="organisation" required placeholder={t.form.organisationPlaceholder} />
-          </label>
-
-          <label className="contact-field">
-            <span>{t.form.email}</span>
-            <input name="email" type="email" required placeholder={t.form.emailPlaceholder} />
-          </label>
-
-          <label className="contact-field sm:col-span-2">
-            <span>{t.form.type}</span>
-            <select name="enquiryType" required defaultValue="">
-              <option value="" disabled>{t.form.typePlaceholder}</option>
-              {t.form.options.map((option) => (
-                <option key={option} value={option}>{option}</option>
-              ))}
-            </select>
-          </label>
-
-          <label className="contact-field sm:col-span-2">
-            <span>{t.form.message}</span>
-            <textarea name="message" required rows={6} placeholder={t.form.messagePlaceholder} />
-          </label>
-
-          <div className="sm:col-span-2">
-            <button
-              type="submit"
-              className="rounded-md bg-[#0075b5] px-7 py-4 text-sm font-bold uppercase tracking-[0.12em] text-white transition-all duration-200 hover:-translate-y-0.5 hover:bg-[#00679f] hover:shadow-[0_8px_24px_rgba(0,117,181,0.24)] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#0075b5]"
-            >
-              {t.form.submit} →
-            </button>
+      <section className="bg-[#404041] px-6 py-18 text-white sm:px-10 sm:py-22 lg:px-16 lg:py-24">
+        <div className="mx-auto grid max-w-295 gap-12 lg:grid-cols-[0.75fr_1.25fr] lg:gap-20">
+          <div className="lg:sticky lg:top-28 lg:self-start">
+            <p className="text-xs font-bold uppercase tracking-[0.25em] text-[#0075b5]">{t.faq.eyebrow}</p>
+            <h2 className="mt-5 text-[clamp(2.4rem,4vw,4rem)] font-extrabold leading-[1.05]">{t.faq.title}</h2>
+            <p className="mt-5 max-w-85 text-base leading-7 text-white/45">{t.faq.intro}</p>
           </div>
-        </form>
+
+          <div className="border-t border-white/15">
+            {t.faq.items.map((item, index) => {
+              const isOpen = openFaq === index;
+              return (
+                <div key={item.question} className="border-b border-white/15">
+                  <button
+                    type="button"
+                    aria-expanded={isOpen}
+                    onClick={() => setOpenFaq(isOpen ? null : index)}
+                    className="flex w-full items-center justify-between gap-6 py-7 text-left text-lg font-bold transition-colors hover:text-[#54c5f1] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#54c5f1] sm:text-xl"
+                  >
+                    <span>{item.question}</span>
+                    <span aria-hidden="true" className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-white/25 text-xl font-light transition-transform duration-300 ${isOpen ? "rotate-45" : ""}`}>
+                      +
+                    </span>
+                  </button>
+                  <div className={`grid transition-[grid-template-rows] duration-300 ease-out ${isOpen ? "grid-rows-[1fr]" : "grid-rows-[0fr]"}`}>
+                    <div className="overflow-hidden">
+                      <p className="max-w-170 pb-7 pr-12 text-base leading-7 text-white/55">{item.answer}</p>
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
       </section>
     </div>
   );
