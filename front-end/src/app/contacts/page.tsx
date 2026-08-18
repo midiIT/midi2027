@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useLanguage } from "@/context/LanguageContext";
 import { text } from "@/app/contacts/pageText";
 
@@ -60,10 +60,42 @@ function ContactCard({ href, iconPath, title, description, handle, brand }: Cont
 }
 
 function AnimatedStat({ value, label }: { value: number; label: string }) {
+  const [displayValue, setDisplayValue] = useState(0);
+
+  useEffect(() => {
+    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    if (prefersReducedMotion) {
+      const animationFrame = requestAnimationFrame(() => setDisplayValue(value));
+      return () => cancelAnimationFrame(animationFrame);
+    }
+
+    const duration = 1600;
+    let animationFrame = 0;
+    let startTime: number | null = null;
+
+    const countUp = (timestamp: number) => {
+      if (startTime === null) startTime = timestamp;
+
+      const progress = Math.min((timestamp - startTime) / duration, 1);
+      const easedProgress = 1 - Math.pow(1 - progress, 3);
+
+      setDisplayValue(Math.round(value * easedProgress));
+
+      if (progress < 1) {
+        animationFrame = requestAnimationFrame(countUp);
+      }
+    };
+
+    animationFrame = requestAnimationFrame(countUp);
+
+    return () => cancelAnimationFrame(animationFrame);
+  }, [value]);
+
   return (
     <div className="text-center sm:text-left">
       <div className="text-[clamp(2.75rem,5vw,4.5rem)] font-extrabold leading-none tracking-[-0.04em] text-white">
-        {value}+
+        {displayValue}+
       </div>
       <div className="mt-3 text-[10px] font-bold uppercase tracking-[0.2em] text-white/45 sm:text-xs">
         {label}
@@ -136,8 +168,14 @@ export default function ContactsPage() {
                     className="flex w-full items-center justify-between gap-6 py-7 text-left text-lg font-bold transition-colors hover:text-[#54c5f1] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#54c5f1] sm:text-xl"
                   >
                     <span>{item.question}</span>
-                    <span aria-hidden="true" className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-white/25 text-xl font-light transition-transform duration-300 ${isOpen ? "rotate-45" : ""}`}>
-                      +
+                    <span aria-hidden="true" className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-white/25">
+                      <Image
+                        src={isOpen ? "/closeIcon.svg" : "/icons/addIcon.svg"}
+                        alt=""
+                        width={18}
+                        height={18}
+                        className="h-4.5 w-4.5 brightness-0 invert"
+                      />
                     </span>
                   </button>
                   <div className={`grid transition-[grid-template-rows] duration-300 ease-out ${isOpen ? "grid-rows-[1fr]" : "grid-rows-[0fr]"}`}>
