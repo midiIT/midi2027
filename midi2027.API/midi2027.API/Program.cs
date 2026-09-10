@@ -1,6 +1,7 @@
 using midi2027.API.Common.Extensions;
 using midi2027.API.Middleware;
 using Serilog;
+using System.Threading.RateLimiting;
 
 namespace midi2027.API
 {
@@ -26,6 +27,22 @@ namespace midi2027.API
                 builder.Services.AddSwaggerGen();
                 builder.Services.AddAppSettings(builder.Configuration);
 
+                builder.Services.AddRateLimiter(options =>
+                {
+                    options.RejectionStatusCode = StatusCodes.Status429TooManyRequests;
+
+                    options.AddPolicy("LatestFeedPolicy", httpContext =>
+                        RateLimitPartition.GetFixedWindowLimiter(
+                            partitionKey: httpContext.Connection.RemoteIpAddress?.ToString() ?? "unknown",
+                            factory: _ => new FixedWindowRateLimiterOptions
+                            {
+                                PermitLimit = 20,
+                                Window = TimeSpan.FromMinutes(1),
+                                QueueLimit = 0,
+                                AutoReplenishment = true
+                            }));
+                });
+
                 var app = builder.Build();
 
                 // Configure the HTTP request pipeline.
@@ -37,6 +54,8 @@ namespace midi2027.API
                 app.UseMiddleware<TraceLoggingMiddleware>();
 
                 app.UseAuthorization();
+
+                app.UseRateLimiter();
 
                 app.MapControllers();
 

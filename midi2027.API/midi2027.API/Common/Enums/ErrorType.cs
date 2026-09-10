@@ -15,7 +15,12 @@
         // 10xx - Instagram errors
         INSTAGRAM_EXCEPTION = 1000,
         INSTAGRAM_API_ERROR = 1001,
-        INSTAGRAM_RESPONSE_INVALID = 1002
-        
+        INSTAGRAM_RESPONSE_INVALID = 1002,
+
+        // 11xx - Instagram errors
+        FACEBOOK_EXCEPTION = 1100,
+        FACEBOOK_API_ERROR = 1101,
+        FACEBOOK_RESPONSE_INVALID = 1102
+
     }
 }

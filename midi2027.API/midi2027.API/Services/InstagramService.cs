@@ -20,12 +20,12 @@ namespace midi2027.API.Services
             _logger = logger;
             _settings = settings;
         }
-        public async Task<Result<InstagramPost>> GetLatestPostAsync()
+        public async Task<Result<List<InstagramPost>>> GetLatestPostAsync(int limit)
         {
             var url =
                 $"https://graph.instagram.com/{_settings.Instagram.ApiVersion}/{_settings.Instagram.UserId}/media" +
                 "?fields=id,caption,media_type,media_url,thumbnail_url,permalink,timestamp" +
-                "&limit=1";
+                $"&limit={limit}";
 
             try
             {
@@ -55,19 +55,14 @@ namespace midi2027.API.Services
 
                 _logger.LogInformation(LogMessages.Instagram.RESPONSE_SUCCESS);
 
-                if (result == null)
+                if (result?.Data == null || result.Data.Count == 0)
                     return ErrorType.NOT_FOUND;
 
-                var post = result.Data.FirstOrDefault();
-
-                if (post == null)
-                    return ErrorType.NOT_FOUND;
-
-                return post;
+                return result.Data;
             }
             catch (Exception ex)
             {
-                _logger.LogError("Error while getting latest Instagram post Error: \"{error}\"", ex.Message);
+                _logger.LogError(LogMessages.CAUGHT_EXCEPTION, ex.Message);
 
                 return ErrorType.INSTAGRAM_EXCEPTION;
             }

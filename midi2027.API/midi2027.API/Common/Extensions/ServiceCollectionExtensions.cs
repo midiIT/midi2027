@@ -9,9 +9,12 @@ namespace midi2027.API.Common.Extensions
         {
             services.Configure<InstagramSettings>(
                     configuration.GetSection("Instagram"));
+            services.Configure<FacebookSettings>(
+                    configuration.GetSection("Facebook"));
 
             services.AddSingleton<AppSettingsService>();
             services.AddHttpClient<InstagramService>();
+            services.AddHttpClient<FacebookService>();
 
             return services;
         }

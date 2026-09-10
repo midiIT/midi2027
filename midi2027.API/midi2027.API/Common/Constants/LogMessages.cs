@@ -10,5 +10,10 @@
             public const string API_REQUEST_FAILURE = "Instagram API request failed with status code \"{StatusCode}\". Response: \"{response}\"";
             public const string RESPONSE_SUCCESS = "Successfully received latest Instagram post";
         }
+        public static class Facebook
+        {
+            public const string API_REQUEST_FAILURE = "Facebook API request failed with status code \"{StatusCode}\". Response: \"{response}\"";
+            public const string RESPONSE_SUCCESS = "Successfully received latest Facebook post";
+        }
     }
 }
