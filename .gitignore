@@ -38,3 +38,19 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+
+# .NET / ASP.NET Core
+
+**/bin/
+**/obj/
+**/.vs/
+**/logs/
+**/App_Data/
+
+*.user
+*.suo
+*.tmp
+
+**/appsettings.Development.json
+**/appsettings.Local.json
