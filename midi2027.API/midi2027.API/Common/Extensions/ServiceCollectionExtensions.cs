@@ -11,10 +11,16 @@ namespace midi2027.API.Common.Extensions
                     configuration.GetSection("Instagram"));
             services.Configure<FacebookSettings>(
                     configuration.GetSection("Facebook"));
+            services.Configure<TikTokSettings>(
+                    configuration.GetSection("TikTok"));
+
+            services.AddMemoryCache();
 
             services.AddSingleton<AppSettingsService>();
             services.AddHttpClient<InstagramService>();
             services.AddHttpClient<FacebookService>();
+            services.AddHttpClient<TikTokService>();
+            services.AddSingleton<TikTokTokenStore>();
 
             return services;
         }

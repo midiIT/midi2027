@@ -7,16 +7,20 @@ namespace midi2027.API.Services
     {
         public InstagramSettings Instagram { get; }
         public FacebookSettings Facebook { get; }
+        public TikTokSettings TikTok { get; }
         public AppSettingsService(
             IOptions<InstagramSettings> instagram,
-            IOptions<FacebookSettings> facebook
+            IOptions<FacebookSettings> facebook,
+            IOptions<TikTokSettings> tikTok
         )
         {
             Instagram = instagram.Value;
             Facebook = facebook.Value;
+            TikTok = tikTok.Value;
 
             ValidateInstagramOptions();
             ValidateDFacebookOptions();
+            ValidateTiktokOptions();
         }
         private void ValidateInstagramOptions()
         {
@@ -40,6 +44,16 @@ namespace midi2027.API.Services
             if (string.IsNullOrWhiteSpace(Facebook.PageId))
                 throw new InvalidOperationException("Facebook: PageId is empty");
         }
-
+        private void ValidateTiktokOptions()
+        {
+            if(string.IsNullOrWhiteSpace(TikTok.ClientKey))
+                throw new InvalidOperationException("TikTok: ClientKey is empty");
+            if (string.IsNullOrWhiteSpace(TikTok.ClientSecret))
+                throw new InvalidOperationException("TikTok: ClientSecret is empty");
+            if (string.IsNullOrWhiteSpace(TikTok.RedirectUri))
+                throw new InvalidOperationException("TikTok: RedirectUri is empty");
+            if (string.IsNullOrWhiteSpace(TikTok.Scopes))
+                throw new InvalidOperationException("TikTok: Scopes is empty");
+        }
     }
 }
