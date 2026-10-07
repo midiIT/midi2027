@@ -34,6 +34,7 @@ type FirstHalfPageText = {
     minutes: string;
     seconds: string;
     mainButton: string;
+    volunteerButton: string;
     bottomSubTitle: string;
     latestFeed: LatestFeedText;
     updates: {
@@ -53,6 +54,7 @@ export const text: Record<Lang, FirstHalfPageText> = {
         minutes: "MINUTES",
         seconds: "SECONDS",
         mainButton: "GET IN TOUCH",
+        volunteerButton: "BECOME A VOLUNTEER",
         bottomSubTitle: "TARGET LAUNCH - APRIL 10, 2027",
         latestFeed: {
             label: "MIDI SOCIAL",
@@ -94,6 +96,7 @@ export const text: Record<Lang, FirstHalfPageText> = {
         minutes: "MINUTĖS",
         seconds: "SEKUNDĖS",
         mainButton: "PARAŠYK MUMS",
+        volunteerButton: "TAPK SAVANORIU",
         bottomSubTitle: "2027 M. BALANDŽIO 10 D.",
         latestFeed: {
             label: "MIDI SOCIAL",

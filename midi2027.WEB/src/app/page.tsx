@@ -2,6 +2,7 @@
 
 import logoMidiWhite from "../../public/logos/MIDI-Logotipas-baltas.png";
 import Image from "next/image";
+import { ArrowUpRight } from "lucide-react";
 import { text } from "@/app/pageText";
 import { useLanguage } from "@/context/LanguageContext";
 import { Typewriter } from "@/compoments/Typerwriter";
@@ -61,10 +62,18 @@ export default function Home() {
                         />
                     </div>
 
-                    <div className="py-6">
+                    <div className="flex flex-col items-center justify-center gap-3 py-6 sm:flex-row">
+                        <a
+                            href="https://forms.gle/v9x3FRXbMZdov5op6"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="cta-main-btn inline-flex min-h-14 w-full items-center justify-center gap-3 rounded-md bg-white px-6 py-4 text-lg font-bold text-[#0075b5] transition-colors hover:bg-white/90 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white sm:w-auto"
+                        >
+                            {t.volunteerButton}<ArrowUpRight size={20} className="shrink-0" aria-hidden="true" />
+                        </a>
                         <Link
                             href="/contacts"
-                            className="cta-main-btn text-lg py-5 px-7 font-bold tracking-widest text-[#0075b5] outline-white bg-white rounded-md transition-all duration-150 hover:-translate-y-0.5 hover:shadow-[0_6px_32px_rgba(0,0,0,0.3)]"
+                            className="cta-main-btn cta-main-btn--alternate inline-flex min-h-14 w-full items-center justify-center rounded-md border border-white/60 px-6 py-4 text-lg font-bold text-white transition-colors hover:bg-white/10 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white sm:w-auto"
                         >
                             {t.mainButton}
                         </Link>
