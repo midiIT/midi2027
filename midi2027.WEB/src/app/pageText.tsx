@@ -1,4 +1,5 @@
 import { Lang } from "@/context/LanguageContext";
+import type { Filter } from "@/utils/feed";
 
 export type LatestFeedText = {
     label: string;
@@ -6,7 +7,7 @@ export type LatestFeedText = {
     previous: string;
     next: string;
     filterLabel: string;
-    filters: Record<"all" | "instagram" | "tiktok", string>;
+    filters: Record<Filter, string>;
     regionLabel: string;
     loading: string;
     empty: string;
@@ -59,7 +60,7 @@ export const text: Record<Lang, FirstHalfPageText> = {
             previous: "Previous posts",
             next: "Next posts",
             filterLabel: "Post platform",
-            filters: { all: "All", instagram: "Instagram", tiktok: "TikTok" },
+            filters: { all: "All", instagram: "Instagram", tiktok: "TikTok", facebook: "Facebook" },
             regionLabel: "Social posts",
             loading: "Loading…",
             empty: "The latest post from MIDI.",
@@ -100,7 +101,7 @@ export const text: Record<Lang, FirstHalfPageText> = {
             previous: "Ankstesni įrašai",
             next: "Kiti įrašai",
             filterLabel: "Įrašų platforma",
-            filters: { all: "Visi", instagram: "Instagram", tiktok: "TikTok" },
+            filters: { all: "Visi", instagram: "Instagram", tiktok: "TikTok", facebook: "Facebook" },
             regionLabel: "Socialinių tinklų įrašai",
             loading: "Kraunama…",
             empty: "Naujausias MIDI įrašas.",

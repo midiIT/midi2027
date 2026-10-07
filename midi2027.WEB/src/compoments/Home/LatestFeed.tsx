@@ -74,11 +74,11 @@ export function LatestFeed() {
                         </button>
                     </div>}
                 </div>
-                {!feed.allUnavailable && <div role="group" aria-label={t.filterLabel} className="mt-6 flex gap-1 border-b border-white/15">
+                {!feed.allUnavailable && <div role="group" aria-label={t.filterLabel} className="mt-6 flex gap-1 overflow-x-auto border-b border-white/15 [scrollbar-width:none]">
                     {filterOptions.map(value => (
                         <button key={value} type="button" aria-pressed={feed.filter === value}
                             onClick={() => feed.selectFilter(value)}
-                            className={`min-h-11 border-b-2 px-3 text-sm font-bold transition-colors focus-visible:outline-2 focus-visible:outline-offset-[-2px] ${feed.filter === value ? "border-[#72d4ec] text-white" : "border-transparent text-white/55 hover:text-white"}`}>
+                            className={`min-h-11 shrink-0 border-b-2 px-3 text-sm font-bold transition-colors focus-visible:outline-2 focus-visible:outline-offset-[-2px] ${feed.filter === value ? "border-[#72d4ec] text-white" : "border-transparent text-white/55 hover:text-white"}`}>
                             {t.filters[value]}
                         </button>
                     ))}

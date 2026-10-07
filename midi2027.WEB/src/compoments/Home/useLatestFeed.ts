@@ -5,11 +5,12 @@ import { loadPosts } from "@/utils/api";
 import { maxPosts, platformOptions, postLimit } from "@/utils/feed";
 import type { FeedState, Filter, Platform, Post } from "@/utils/feed";
 
-function interleavePosts(instagram: Post[], tiktok: Post[]): Post[] {
+function interleavePosts(feeds: Post[][]): Post[] {
     const posts: Post[] = [];
-    for (let index = 0; index < Math.max(instagram.length, tiktok.length); index++) {
-        if (instagram[index]) posts.push(instagram[index]);
-        if (tiktok[index]) posts.push(tiktok[index]);
+    for (let index = 0; index < Math.max(...feeds.map(feed => feed.length)); index++) {
+        for (const feed of feeds) {
+            if (feed[index]) posts.push(feed[index]);
+        }
     }
     return posts;
 }
@@ -18,6 +19,7 @@ export function useLatestFeed() {
     const [feeds, setFeeds] = useState<Record<Platform, FeedState>>({
         instagram: { status: "loading" },
         tiktok: { status: "loading" },
+        facebook: { status: "loading" },
     });
     const [filter, setFilter] = useState<Filter>("all");
     const [loadingMore, setLoadingMore] = useState(false);
@@ -37,11 +39,11 @@ export function useLatestFeed() {
         return () => { active = false; };
     }, []);
 
-    const instagram = feeds.instagram.status === "ready" ? feeds.instagram.posts : [];
-    const tiktok = feeds.tiktok.status === "ready" ? feeds.tiktok.posts : [];
-    const posts = filter === "instagram" ? instagram
-        : filter === "tiktok" ? tiktok : interleavePosts(instagram, tiktok);
     const visiblePlatforms: Platform[] = filter === "all" ? platformOptions : [filter];
+    const posts = interleavePosts(visiblePlatforms.map(platform => {
+        const feed = feeds[platform];
+        return feed.status === "ready" ? feed.posts : [];
+    }));
     const loading = visiblePlatforms.some(platform => feeds[platform].status === "loading");
     const canLoadMore = visiblePlatforms.some(platform => feeds[platform].status === "ready" && feeds[platform].hasMore);
     const unavailablePlatforms = visiblePlatforms.filter(platform => feeds[platform].status === "unavailable");

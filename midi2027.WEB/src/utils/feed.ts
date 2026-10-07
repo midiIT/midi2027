@@ -1,7 +1,8 @@
 import instagramIcon from "../../public/icons/instagramIcon.svg";
 import tiktokIcon from "../../public/icons/tiktokIcon.svg";
+import facebookIcon from "../../public/icons/facebookIcon.svg";
 
-export type Platform = "instagram" | "tiktok";
+export type Platform = "instagram" | "tiktok" | "facebook";
 export type Filter = "all" | Platform;
 
 export type Post = {
@@ -18,7 +19,7 @@ export type FeedState = { status: "loading" } | ({ status: "ready" } & FeedPage)
 
 export const postLimit = 8;
 export const maxPosts = 20;
-export const platformOptions: Platform[] = ["instagram", "tiktok"];
+export const platformOptions: Platform[] = ["instagram", "tiktok", "facebook"];
 export const filterOptions: Filter[] = ["all", ...platformOptions];
 export const platforms: Record<Platform, { title: string; icon: string; profile: string }> = {
     instagram: {
@@ -30,5 +31,10 @@ export const platforms: Record<Platform, { title: string; icon: string; profile:
         title: "TikTok",
         icon: tiktokIcon.src,
         profile: "https://www.tiktok.com/@midi.lt",
+    },
+    facebook: {
+        title: "Facebook",
+        icon: facebookIcon.src,
+        profile: "https://www.facebook.com/midi.lt",
     },
 };

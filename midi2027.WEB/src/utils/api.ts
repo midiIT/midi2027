@@ -26,11 +26,14 @@ export function normalizePosts(value: unknown, platform: Platform, limit = postL
         platform,
         imageUrl: platform === "instagram"
             ? safeUrl(post.thumbnail_url) ?? (post.media_type !== "VIDEO" ? safeUrl(post.media_url) : undefined)
-            : safeUrl(post.cover_image_url),
-        description: String(platform === "instagram" ? post.caption ?? "" : post.title || post.video_description || ""),
-        href: safeUrl(platform === "instagram" ? post.permalink : post.share_url) ?? platforms[platform].profile,
-        timestamp: platform === "instagram" && typeof post.timestamp === "string"
-            ? post.timestamp
+            : safeUrl(platform === "facebook" ? post.full_picture : post.cover_image_url),
+        description: String(platform === "instagram" ? post.caption ?? ""
+            : platform === "facebook" ? post.message ?? "" : post.title || post.video_description || ""),
+        href: safeUrl(platform === "instagram" ? post.permalink
+            : platform === "facebook" ? post.permalink_url : post.share_url) ?? platforms[platform].profile,
+        timestamp: platform === "facebook" && typeof post.created_time === "string"
+            ? post.created_time
+            : platform === "instagram" && typeof post.timestamp === "string" ? post.timestamp
             : typeof post.create_time === "number" ? new Date(post.create_time * 1000).toISOString() : undefined,
     }));
 }
