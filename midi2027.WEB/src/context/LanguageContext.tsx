@@ -21,12 +21,14 @@ export function LanguageProvider({
     const [lang, setLangState] = useState<Lang>("lt");
 
     useEffect(() => {
-        const savedLang = localStorage.getItem("lang");
-
-        if (savedLang === "en" || savedLang === "lt") {
-            setLangState(savedLang);
-            document.documentElement.lang = savedLang;
-        }
+        const frame = requestAnimationFrame(() => {
+            const savedLang = localStorage.getItem("lang");
+            if (savedLang === "en" || savedLang === "lt") {
+                setLangState(savedLang);
+                document.documentElement.lang = savedLang;
+            }
+        });
+        return () => cancelAnimationFrame(frame);
     }, []);
 
     function setLang(newLang: Lang) {

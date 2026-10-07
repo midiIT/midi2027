@@ -1,9 +1,11 @@
 import Image from "next/image";
 import { ArrowUpRight, Mail } from "lucide-react";
-import type { TeamMember } from "@/app/team/pageSlides";
-import type { TeamPageText } from "@/app/team/pageText";
+type TeamCardProps = {
+    member: { name: string; role: string; email: string; photo?: string };
+    t: { photoAlt: string; emailLabel: string; roles: Record<string, string> };
+};
 
-export function TeamCard({ member, t }: { member: TeamMember; t: TeamPageText }) {
+export function TeamCard({ member, t }: TeamCardProps) {
     const names = member.name.split(" ");
     const initials = names[0][0] + names[names.length - 1][0];
 
