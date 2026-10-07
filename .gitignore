@@ -619,3 +619,4 @@ coverage*[.json, .xml, .info]
 # End of https://www.toptal.com/developers/gitignore/api/vs,csharp
 
 App_Data/
+AGENTS.md
