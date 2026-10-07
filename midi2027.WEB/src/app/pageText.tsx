@@ -19,6 +19,8 @@ export type LatestFeedText = {
     loadMore: string;
     moreError: string;
     unavailable: string;
+    unavailableTitle: string;
+    unavailableDescription: string;
     retry: string;
     profile: string;
 };
@@ -70,6 +72,8 @@ export const text: Record<Lang, FirstHalfPageText> = {
             loadMore: "Load more",
             moreError: "More posts could not be loaded. Please try again.",
             unavailable: "posts are temporarily unavailable.",
+            unavailableTitle: "Find MIDI on social",
+            unavailableDescription: "Posts are temporarily unavailable. Catch up with MIDI on our social channels.",
             retry: "Try again",
             profile: "Visit profile",
         },
@@ -109,6 +113,8 @@ export const text: Record<Lang, FirstHalfPageText> = {
             loadMore: "Rodyti daugiau",
             moreError: "Daugiau įrašų įkelti nepavyko. Bandykite dar kartą.",
             unavailable: "įrašų šiuo metu pasiekti nepavyko.",
+            unavailableTitle: "Susitikime socialiniuose tinkluose",
+            unavailableDescription: "Įrašai laikinai nepasiekiami. MIDI naujienas rasite mūsų socialiniuose tinkluose.",
             retry: "Bandyti dar kartą",
             profile: "Atverti profilį",
         },

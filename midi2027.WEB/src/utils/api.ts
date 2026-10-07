@@ -1,8 +1,7 @@
 import { maxPosts, platforms, postLimit } from "./feed";
 import type { FeedPage, Platform, Post } from "./feed";
 
-const apiBase = process.env.NEXT_PUBLIC_API_BASE_URL?.replace(/\/$/, "")
-    ?? (process.env.NODE_ENV === "development" ? "http://localhost:5000" : "https://midi.lt");
+const apiBase = "https://api.midi.lt"
 const pendingRequests = new Map<string, Promise<FeedPage>>();
 const memoryPosts = new Map<Platform, FeedPage>();
 

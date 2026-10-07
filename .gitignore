@@ -620,3 +620,4 @@ coverage*[.json, .xml, .info]
 
 App_Data/
 AGENTS.md
+publish-linux/

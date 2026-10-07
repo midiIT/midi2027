@@ -45,6 +45,7 @@ export function useLatestFeed() {
     const loading = visiblePlatforms.some(platform => feeds[platform].status === "loading");
     const canLoadMore = visiblePlatforms.some(platform => feeds[platform].status === "ready" && feeds[platform].hasMore);
     const unavailablePlatforms = visiblePlatforms.filter(platform => feeds[platform].status === "unavailable");
+    const allUnavailable = platformOptions.every(platform => feeds[platform].status === "unavailable");
 
     function selectFilter(value: Filter) {
         setFilter(value);
@@ -75,6 +76,6 @@ export function useLatestFeed() {
 
     return {
         posts, filter, selectFilter, loading, loadingMore, canLoadMore,
-        moreError, unavailablePlatforms, retry, loadMore,
+        moreError, unavailablePlatforms, allUnavailable, retry, loadMore,
     };
 }

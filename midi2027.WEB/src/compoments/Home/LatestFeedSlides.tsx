@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { ArrowUpRight, ChevronDown, ChevronUp, RotateCw } from "lucide-react";
+import { ArrowUpRight, ChevronDown, ChevronUp, RotateCw, WifiOff } from "lucide-react";
 import { useEffect, useId, useRef, useState } from "react";
 import type { LatestFeedText } from "@/app/pageText";
 import { platforms } from "@/utils/feed";
@@ -116,6 +116,41 @@ export function FeedUnavailable({ platform, t, onRetry }: {
             <a href={source.profile} target="_blank" rel="noreferrer" className="flex min-h-10 items-center gap-1 hover:text-white">
                 {t.profile}<ArrowUpRight size={14} aria-hidden="true" />
             </a>
+        </div>
+    );
+}
+
+export function FeedOffline({ sources, t, onRetry }: {
+    sources: Platform[];
+    t: LatestFeedText;
+    onRetry: () => void;
+}) {
+    return (
+        <div className="mt-7 flex flex-col gap-6 border-t border-white/15 py-8 sm:flex-row sm:items-center sm:justify-between">
+            <div className="flex items-start gap-4">
+                <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-white/5 text-[#72d4ec]">
+                    <WifiOff size={22} aria-hidden="true" />
+                </span>
+                <div className="min-w-0">
+                    <div role="status">
+                        <h3 className="text-xl font-bold">{t.unavailableTitle}</h3>
+                        <p className="mt-2 max-w-lg text-sm leading-6 text-white/65">{t.unavailableDescription}</p>
+                    </div>
+                    <div className="mt-3 flex flex-wrap gap-x-6 gap-y-1">
+                        {sources.map(platform => (
+                            <a key={platform} href={platforms[platform].profile} target="_blank" rel="noreferrer"
+                                className="flex min-h-11 items-center gap-2 text-sm font-bold text-white/85 hover:text-[#72d4ec] focus-visible:outline-2 focus-visible:outline-offset-4">
+                                <Image src={platforms[platform].icon} width={18} height={18} alt="" />
+                                {platforms[platform].title}<ArrowUpRight size={14} aria-hidden="true" />
+                            </a>
+                        ))}
+                    </div>
+                </div>
+            </div>
+            <button type="button" onClick={onRetry}
+                className="flex min-h-11 shrink-0 items-center justify-center gap-2 self-start rounded border border-white/25 px-4 text-sm font-bold transition-colors hover:bg-white/10 focus-visible:outline-2 focus-visible:outline-offset-4 sm:self-center">
+                <RotateCw size={16} aria-hidden="true" />{t.retry}
+            </button>
         </div>
     );
 }

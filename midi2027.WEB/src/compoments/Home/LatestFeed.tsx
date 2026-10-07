@@ -4,8 +4,8 @@ import { ArrowLeft, ArrowRight, Plus, RotateCw } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { text } from "@/app/pageText";
 import { useLanguage } from "@/context/LanguageContext";
-import { filterOptions } from "@/utils/feed";
-import { FeedCard, FeedSkeleton, FeedUnavailable } from "./LatestFeedSlides";
+import { filterOptions, platformOptions } from "@/utils/feed";
+import { FeedCard, FeedOffline, FeedSkeleton, FeedUnavailable } from "./LatestFeedSlides";
 import { useLatestFeed } from "./useLatestFeed";
 
 export function LatestFeed() {
@@ -14,6 +14,8 @@ export function LatestFeed() {
     const feed = useLatestFeed();
     const trackRef = useRef<HTMLDivElement>(null);
     const [scrollState, setScrollState] = useState({ previous: false, next: false });
+    const offline = !feed.loading && feed.posts.length === 0 && feed.unavailablePlatforms.length > 0;
+    const offlinePlatforms = feed.allUnavailable ? platformOptions : feed.unavailablePlatforms;
 
     useEffect(() => {
         trackRef.current?.scrollTo({ left: 0 });
@@ -59,7 +61,7 @@ export function LatestFeed() {
                 <p className="text-xs font-bold uppercase text-white/55">{t.label}</p>
                 <div className="mt-3 flex flex-wrap items-end justify-between gap-5">
                     <h2 id="latest-feed-title" className="text-3xl font-extrabold sm:text-4xl">{t.title}</h2>
-                    <div className="flex gap-2">
+                    {feed.posts.length > 0 && <div className="flex gap-2">
                         <button type="button" onClick={() => scroll(-1)} disabled={!scrollState.previous}
                             aria-label={t.previous} title={t.previous}
                             className="flex h-11 w-11 items-center justify-center rounded border border-white/30 transition-colors hover:bg-white/10 focus-visible:outline-2 focus-visible:outline-offset-4 disabled:cursor-default disabled:opacity-25">
@@ -70,9 +72,9 @@ export function LatestFeed() {
                             className="flex h-11 w-11 items-center justify-center rounded border border-white/30 transition-colors hover:bg-white/10 focus-visible:outline-2 focus-visible:outline-offset-4 disabled:cursor-default disabled:opacity-25">
                             <ArrowRight size={20} aria-hidden="true" />
                         </button>
-                    </div>
+                    </div>}
                 </div>
-                <div role="group" aria-label={t.filterLabel} className="mt-6 flex gap-1 border-b border-white/15">
+                {!feed.allUnavailable && <div role="group" aria-label={t.filterLabel} className="mt-6 flex gap-1 border-b border-white/15">
                     {filterOptions.map(value => (
                         <button key={value} type="button" aria-pressed={feed.filter === value}
                             onClick={() => feed.selectFilter(value)}
@@ -80,8 +82,8 @@ export function LatestFeed() {
                             {t.filters[value]}
                         </button>
                     ))}
-                </div>
-                <div ref={trackRef} role="region" aria-label={t.regionLabel} tabIndex={0}
+                </div>}
+                {(feed.loading || feed.posts.length > 0) && <div ref={trackRef} role="region" aria-label={t.regionLabel} tabIndex={0}
                     onKeyDown={event => {
                         if (event.target === event.currentTarget && (event.key === "ArrowLeft" || event.key === "ArrowRight")) {
                             event.preventDefault();
@@ -100,14 +102,16 @@ export function LatestFeed() {
                             </button>
                         </div>
                     )}
-                </div>
+                </div>}
                 {feed.posts.length > 0 && (
                     <div className="mt-4">
                         <span aria-live="polite" className="text-xs text-white/55">{feed.posts.length} {t.postCount}</span>
                     </div>
                 )}
                 {feed.moreError && <p role="status" className="mt-3 text-sm text-white/65">{t.moreError}</p>}
-                {feed.unavailablePlatforms.map(platform => (
+                {offline && <FeedOffline sources={offlinePlatforms} t={t}
+                    onRetry={() => offlinePlatforms.forEach(platform => feed.retry(platform))} />}
+                {!offline && feed.unavailablePlatforms.map(platform => (
                     <FeedUnavailable key={platform} platform={platform} t={t} onRetry={() => feed.retry(platform)} />
                 ))}
             </div>
