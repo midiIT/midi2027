@@ -4,11 +4,11 @@ import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { MobileMenu } from "../MobileMenu";
 
-import logoMidiBlack from "../../../public/MIDI-Logotipas.png"
+import logoMidiBlack from "../../../public/logos/MIDI-Logotipas.png"
 import Image from "next/image";
 import Link from "next/link";
-import burgerIcon from "../../../public/burgerIcon.svg"
-import closeIcon from "../../../public/closeIcon.svg"
+import burgerIcon from "../../../public/icons/burgerIcon.svg"
+import closeIcon from "../../../public/icons/closeIcon.svg"
 import { useLanguage } from "@/context/LanguageContext";
 import { LangToggle } from "../LangToggle";
 import { text } from "@/compoments/Header/HeaderText";

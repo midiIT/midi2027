@@ -1,8 +1,8 @@
 "use client";
 
 import Link from "next/link"
-import logoMidiBlack from "../../../public/MIDI-Logotipas.png"
-import logoVusaMif from "../../../public/VUSAMIF.png"
+import logoMidiBlack from "../../../public/logos/MIDI-Logotipas.png"
+import logoVusaMif from "../../../public/logos/VUSAMIF.png"
 import Image from "next/image"
 import { useLanguage } from "@/context/LanguageContext";
 import { text } from "@/compoments/Footer/FooterText"

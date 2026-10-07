@@ -53,7 +53,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="lt">
-      <body className={`${dosis.className} min-h-screen`}>
+      <body className={`${dosis.className} min-h-screen antialiased`}>
         <LanguageProvider>
           <div className="flex min-h-screen flex-col">
             <main className="flex-1 pt-17">
