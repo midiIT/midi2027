@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.RateLimiting;
-using Microsoft.Extensions.Caching.Memory;
 using midi2027.API.Services;
 
 namespace midi2027.API.Controllers
@@ -13,13 +12,13 @@ namespace midi2027.API.Controllers
         private readonly InstagramService _instagramService;
         private readonly FacebookService _facebookService;
         private readonly TikTokService _tikTokService;
-        private readonly IMemoryCache _cache;
+        private readonly LatestFeedCache _cache;
 
         public LatestFeedController(
             InstagramService instagramService,
             FacebookService facebookService,
             TikTokService tikTokService,
-            IMemoryCache cache)
+            LatestFeedCache cache)
         {
             _instagramService = instagramService;
             _facebookService = facebookService;
@@ -32,12 +31,12 @@ namespace midi2027.API.Controllers
             if (limit is < 1 or > 20)
                 return BadRequest("Limit must be between 1 and 20.");
 
-            var result = await _tikTokService.GetLatestPostsAsync(limit);
+            var result = await _cache.GetAsync("tiktok", () => _tikTokService.GetLatestPostsAsync(20));
 
             if (result.IsError)
                 return BadRequest(result.Error);
 
-            return Ok(result.Value);
+            return Ok(result.Value.Take(limit).ToList());
         }
         [HttpGet("instagram")]
         public async Task<IActionResult> GetLatestInstagramFeed([FromQuery] int limit = 1)
@@ -45,12 +44,12 @@ namespace midi2027.API.Controllers
             if (limit is < 1 or > 20)
                 return BadRequest("Limit must be between 1 and 20.");
 
-            var postResult = await _instagramService.GetLatestPostAsync(limit);
+            var postResult = await _cache.GetAsync("instagram", () => _instagramService.GetLatestPostAsync(20));
 
             if (!postResult.TryGetResult(out var post))
                 return NotFound("No Instagram posts found.");
 
-            return Ok(post);
+            return Ok(post.Take(limit).ToList());
         }
         [HttpGet("facebook")]
         public async Task<IActionResult> GetLatestFacebookFeed([FromQuery] int limit = 1)
@@ -58,12 +57,12 @@ namespace midi2027.API.Controllers
             if (limit is < 1 or > 20)
                 return BadRequest("Limit must be between 1 and 20.");
 
-            var postResult = await _facebookService.GetLatestPostAsync(limit);
+            var postResult = await _cache.GetAsync("facebook", () => _facebookService.GetLatestPostAsync(20));
 
             if (!postResult.TryGetResult(out var post))
                 return NotFound("No Facebook posts found.");
 
-            return Ok(post);
+            return Ok(post.Take(limit).ToList());
         }
 
 

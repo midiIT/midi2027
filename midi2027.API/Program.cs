@@ -22,6 +22,14 @@ namespace midi2027.API
                 // Add services to the container.
 
                 builder.Services.AddControllers();
+                builder.Services.AddCors(options => options.AddPolicy("Frontend", policy =>
+                    policy.WithOrigins(
+                            "http://localhost:3000",
+                            "http://127.0.0.1:3000",
+                            "https://midi.lt",
+                            "https://www.midi.lt")
+                        .AllowAnyHeader()
+                        .AllowAnyMethod()));
                 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
                 builder.Services.AddEndpointsApiExplorer();
                 builder.Services.AddSwaggerGen();
@@ -53,6 +61,7 @@ namespace midi2027.API
                 }
                 app.UseMiddleware<TraceLoggingMiddleware>();
 
+                app.UseCors("Frontend");
                 app.UseAuthorization();
 
                 app.UseRateLimiter();

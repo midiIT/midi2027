@@ -15,6 +15,7 @@ namespace midi2027.API.Common.Extensions
                     configuration.GetSection("TikTok"));
 
             services.AddMemoryCache();
+            services.AddSingleton<LatestFeedCache>();
 
             services.AddSingleton<AppSettingsService>();
             services.AddHttpClient<InstagramService>();

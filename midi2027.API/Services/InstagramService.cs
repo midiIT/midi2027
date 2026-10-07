@@ -2,6 +2,7 @@
 using midi2027.API.Common.Enums;
 using midi2027.API.Common.Models;
 using midi2027.API.Dtos.Instagram;
+using midi2027.API.Helpers;
 using midi2027.API.Models.Instagram;
 using System.Net.Http.Headers;
 using System.Text.Json;
@@ -57,6 +58,11 @@ namespace midi2027.API.Services
 
                 if (result?.Data == null || result.Data.Count == 0)
                     return ErrorType.NOT_FOUND;
+
+                foreach (var post in result.Data)
+                {
+                    post.Caption = PostCleaner.CleanCaption(post.Caption);
+                }
 
                 return result.Data;
             }
