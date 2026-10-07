@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { clearTimeout } from "timers";
 
 type TypewriterProps = {
     text: string;
@@ -9,43 +8,47 @@ type TypewriterProps = {
 
 export function Typewriter({ text }: TypewriterProps) {
     const [displayed, setDisplayed] = useState("");
-    const [phase, setPhase] = useState<"typing" | "pause" | "erasing">("typing");
+    const [phase, setPhase] =
+        useState<"typing" | "pause" | "erasing">("typing");
 
     useEffect(() => {
-        const timeout = setTimeout(() => {
-            setDisplayed("");
-            setPhase("typing");
-        }, 0);
-
-        return () => clearTimeout(timeout);
-    }, [text]);
-
-    useEffect(() => {
-        let timeout: ReturnType<typeof setTimeout>;
+        let timeout: number | undefined;
 
         if (phase === "typing") {
             if (displayed.length < text.length) {
-                timeout = setTimeout(() => {
+                timeout = window.setTimeout(() => {
                     setDisplayed(text.slice(0, displayed.length + 1));
                 }, 50);
             } else {
-                timeout = setTimeout(() => { setPhase("pause"); }, 2000);
+                timeout = window.setTimeout(() => {
+                    setPhase("pause");
+                }, 2000);
             }
         }
 
         if (phase === "pause") {
-            timeout = setTimeout(() => { setPhase("erasing"); }, 400);
+            timeout = window.setTimeout(() => {
+                setPhase("erasing");
+            }, 400);
         }
 
         if (phase === "erasing") {
             if (displayed.length > 0) {
-                timeout = setTimeout(() => { setDisplayed(displayed.slice(0, -1)); }, 30);
+                timeout = window.setTimeout(() => {
+                    setDisplayed(displayed.slice(0, -1));
+                }, 30);
             } else {
-                timeout = setTimeout(() => { setPhase("typing"); }, 500);
+                timeout = window.setTimeout(() => {
+                    setPhase("typing");
+                }, 500);
             }
         }
 
-        return () => clearTimeout(timeout);
+        return () => {
+            if (timeout !== undefined) {
+                window.clearTimeout(timeout);
+            }
+        };
     }, [displayed, phase, text]);
 
     return (
