@@ -1,5 +1,28 @@
 import { Lang } from "@/context/LanguageContext";
 
+export type LatestFeedText = {
+    label: string;
+    title: string;
+    previous: string;
+    next: string;
+    filterLabel: string;
+    filters: Record<"all" | "instagram" | "tiktok", string>;
+    regionLabel: string;
+    loading: string;
+    empty: string;
+    readMore: string;
+    showLess: string;
+    openPost: string;
+    imageLinkLabel: string;
+    dateLocale: string;
+    postCount: string;
+    loadMore: string;
+    moreError: string;
+    unavailable: string;
+    retry: string;
+    profile: string;
+};
+
 type FirstHalfPageText = {
     titleTop: string;
     subTitle: string;
@@ -9,6 +32,13 @@ type FirstHalfPageText = {
     seconds: string;
     mainButton: string;
     bottomSubTitle: string;
+    latestFeed: LatestFeedText;
+    updates: {
+        label: string;
+        title: string;
+        description: string;
+        button: string;
+    };
 };
 
 export const text: Record<Lang, FirstHalfPageText> = {
@@ -20,7 +50,35 @@ export const text: Record<Lang, FirstHalfPageText> = {
         minutes: "MINUTES",
         seconds: "SECONDS",
         mainButton: "GET IN TOUCH",
-        bottomSubTitle: "TARGET LAUNCH - APRIL 10, 2027"
+        bottomSubTitle: "TARGET LAUNCH - APRIL 10, 2027",
+        latestFeed: {
+            label: "MIDI SOCIAL",
+            title: "Latest posts",
+            previous: "Previous posts",
+            next: "Next posts",
+            filterLabel: "Post platform",
+            filters: { all: "All", instagram: "Instagram", tiktok: "TikTok" },
+            regionLabel: "Social posts",
+            loading: "Loading…",
+            empty: "The latest post from MIDI.",
+            readMore: "Read more",
+            showLess: "Show less",
+            openPost: "View post",
+            imageLinkLabel: "View {platform} post",
+            dateLocale: "en-GB",
+            postCount: "posts",
+            loadMore: "Load more",
+            moreError: "More posts could not be loaded. Please try again.",
+            unavailable: "posts are temporarily unavailable.",
+            retry: "Try again",
+            profile: "Visit profile",
+        },
+        updates: {
+            label: "MIDI 2027 · 10 APRIL",
+            title: "Stay tuned – there’s more to come!",
+            description: "As MIDI 2027 approaches, this website will be updated with the programme, event times and registration details. See you on 10 April 2027!",
+            button: "Follow our updates",
+        },
     },
 
     lt: {
@@ -31,6 +89,34 @@ export const text: Record<Lang, FirstHalfPageText> = {
         minutes: "MINUTĖS",
         seconds: "SEKUNDĖS",
         mainButton: "PARAŠYK MUMS",
-        bottomSubTitle: "2027 M. BALANDŽIO 10 D."
+        bottomSubTitle: "2027 M. BALANDŽIO 10 D.",
+        latestFeed: {
+            label: "MIDI SOCIAL",
+            title: "Naujausi įrašai",
+            previous: "Ankstesni įrašai",
+            next: "Kiti įrašai",
+            filterLabel: "Įrašų platforma",
+            filters: { all: "Visi", instagram: "Instagram", tiktok: "TikTok" },
+            regionLabel: "Socialinių tinklų įrašai",
+            loading: "Kraunama…",
+            empty: "Naujausias MIDI įrašas.",
+            readMore: "Skaityti daugiau",
+            showLess: "Rodyti mažiau",
+            openPost: "Peržiūrėti įrašą",
+            imageLinkLabel: "Atverti {platform} įrašą",
+            dateLocale: "lt-LT",
+            postCount: "įrašų",
+            loadMore: "Rodyti daugiau",
+            moreError: "Daugiau įrašų įkelti nepavyko. Bandykite dar kartą.",
+            unavailable: "įrašų šiuo metu pasiekti nepavyko.",
+            retry: "Bandyti dar kartą",
+            profile: "Atverti profilį",
+        },
+        updates: {
+            label: "MIDI 2027 · BALANDŽIO 10 D.",
+            title: "Laukite naujienų – dar susitiksime!",
+            description: "Artėjant MIDI 2027, svetainė atsinaujins: čia rasite renginių programą, laikus ir registracijos informaciją. Susitinkame 2027 m. balandžio 10 d.!",
+            button: "Sekite naujienas",
+        },
     },
 };

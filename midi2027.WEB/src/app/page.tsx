@@ -8,6 +8,7 @@ import { Typewriter } from "@/compoments/Typerwriter";
 import { Countdown } from "@/compoments/CountdownTimer";
 import Link from "next/link";
 import About from "@/compoments/Home/About";
+import { LatestFeed } from "@/compoments/Home/LatestFeed";
 
 export default function Home() {
 
@@ -77,12 +78,13 @@ export default function Home() {
             </div>
 
             <About />
+            <LatestFeed />
             <section className="bg-[#0075b5] px-6 py-14 text-white sm:px-12" aria-labelledby="updates-title">
                 <div className="mx-auto max-w-[1100px]">
-                    <p className="text-xs font-bold uppercase tracking-[0.22em] text-white/65">MIDI 2027 · {lang === "lt" ? "BALANDŽIO 10 D." : "10 APRIL"}</p>
-                    <h2 id="updates-title" className="mt-4 text-3xl font-extrabold sm:text-4xl">{lang === "lt" ? "Laukite naujienų – dar susitiksime!" : "Stay tuned – there’s more to come!"}</h2>
-                    <p className="mt-5 max-w-2xl text-lg leading-8 text-white/80">{lang === "lt" ? "Artėjant MIDI 2027, svetainė atsinaujins: čia rasite renginių programą, laikus ir registracijos informaciją. Susitinkame 2027 m. balandžio 10 d.!" : "As MIDI 2027 approaches, this website will be updated with the programme, event times and registration details. See you on 10 April 2027!"}</p>
-                    <Link href="/contacts" className="mt-6 inline-flex rounded-md bg-white px-6 py-3 font-bold text-[#0075b5] hover:bg-white/90">{lang === "lt" ? "Sekite naujienas" : "Follow our updates"} <span aria-hidden="true" className="ml-3">→</span></Link>
+                    <p className="text-xs font-bold uppercase tracking-[0.22em] text-white/65">{t.updates.label}</p>
+                    <h2 id="updates-title" className="mt-4 text-3xl font-extrabold sm:text-4xl">{t.updates.title}</h2>
+                    <p className="mt-5 max-w-2xl text-lg leading-8 text-white/80">{t.updates.description}</p>
+                    <Link href="/contacts" className="mt-6 inline-flex rounded-md bg-white px-6 py-3 font-bold text-[#0075b5] hover:bg-white/90">{t.updates.button} <span aria-hidden="true" className="ml-3">→</span></Link>
                 </div>
             </section>
         </>

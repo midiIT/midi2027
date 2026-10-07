@@ -113,6 +113,7 @@ export default function ContactsPage() {
   const operaContacts = [
     { href: "https://www.instagram.com/roko_operos/", iconPath: "/icons/instagramIcon.svg", brand: "instagram" as const, ...t.cards.operaInstagram },
     { href: "https://www.youtube.com/@midirokooperos", iconPath: "/icons/youtubeIcon.svg", brand: "youtube" as const, ...t.cards.operaYoutube },
+    { href: "https://www.facebook.com/pages/MIDI-Roko-Operos/106318422731048", iconPath: "/icons/facebookIcon.svg", brand: "facebook" as const, ...t.cards.operaFacebook },
   ];
   const contacts = [
     { href: "mailto:info@midi.lt", iconPath: "/icons/mailIcon.svg", brand: "email" as const, ...t.cards.email },
@@ -120,6 +121,7 @@ export default function ContactsPage() {
     { href: "https://www.facebook.com/midi.lt", iconPath: "/icons/facebookIcon.svg", brand: "facebook" as const, ...t.cards.facebook },
     { href: "https://www.linkedin.com/company/midi-lt/", iconPath: "/icons/linkedinIcon.svg", brand: "linkedin" as const, ...t.cards.linkedin },
     { href: "https://www.tiktok.com/@midi.lt", iconPath: "/icons/tiktokIcon.svg", brand: "tiktok" as const, ...t.cards.tiktok },
+    { href: "https://www.youtube.com/@TheMiDiTV/videos", iconPath: "/icons/youtubeIcon.svg", brand: "youtube" as const, ...t.cards.youtube },
   ];
 
   return (
@@ -150,8 +152,8 @@ export default function ContactsPage() {
           <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3 lg:gap-5">
             {contacts.map((contact) => <ContactCard key={contact.title} {...contact} />)}
           </div>
-          <h2 className="mb-6 mt-14 text-2xl font-bold text-[#404041]">{lang === "lt" ? "MIDI Roko opera" : "MIDI Rock Opera"}</h2>
-          <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
+          <h2 className="mb-6 mt-14 text-2xl font-bold text-[#404041]">{t.operaTitle}</h2>
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3 lg:gap-5">
             {operaContacts.map((contact) => <ContactCard key={contact.title} {...contact} />)}
           </div>
         </div>

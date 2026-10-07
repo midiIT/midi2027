@@ -11,15 +11,14 @@ import burgerIcon from "../../../public/icons/burgerIcon.svg"
 import closeIcon from "../../../public/icons/closeIcon.svg"
 import { useLanguage } from "@/context/LanguageContext";
 import { LangToggle } from "../LangToggle";
-import { text } from "@/compoments/Header/HeaderText";
+import { links, text } from "@/compoments/Header/HeaderText";
 
 
-const links = [
-    { href: "/", label: { en: "Home", lt: "Pagrindinis" } },
-    { href: "/contacts", label: { en: "Contacts", lt: "Kontaktai" } },
-    { href: "/activities", label: { en: "Activities", lt: "Veiklos" } },
-    { href: "/archives", label: { en: "Archives", lt: "Archyvai" } },
-];
+
+function isCurrentPath(pathname: string, href: string) {
+    const normalize = (path: string) => path === "/" ? "/" : path.replace(/\/+$/, "");
+    return normalize(pathname) === normalize(href);
+}
 
 export function Header() {
     const [menuOpen, setMenuOpen] = useState(false);
@@ -49,7 +48,7 @@ export function Header() {
                 </div>
             </Link>
 
-            <div className="flex items-center gap-6 min-[900px]:hidden">
+            <div className="flex items-center gap-3 sm:gap-6 min-[1100px]:hidden">
 
                 <LangToggle />
 
@@ -73,15 +72,16 @@ export function Header() {
                 onClose={() => setMenuOpen(false)}
             />
 
-            <div className="flex items-center gap-2 max-[900px]:hidden">
+            <div className="hidden items-center gap-2 min-[1100px]:flex">
                 <nav className="flex gap-1 ">
                     {links.map(({ href, label }) => {
-                        const active = pathname === href;
+                        const active = isCurrentPath(pathname, href);
 
                         return (
                             <Link
                                 key={href}
                                 href={href}
+                                aria-current={active ? "page" : undefined}
                                 className={`rounded px-4 py-1.75 text-sm font-medium uppercase tracking-[0.08em] transition-all duration-150 ${active
                                     ? "bg-[#e8f4fb] font-bold text-[#0075b5]"
                                     : "text-[#404041] hover:bg-[#f2f2f2]"
