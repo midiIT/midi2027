@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { clearTimeout } from "timers";
 
 type TypewriterProps = {
     text: string;
@@ -11,8 +12,12 @@ export function Typewriter({ text }: TypewriterProps) {
     const [phase, setPhase] = useState<"typing" | "pause" | "erasing">("typing");
 
     useEffect(() => {
-        setDisplayed("");
-        setPhase("typing");
+        const timeout = setTimeout(() => {
+            setDisplayed("");
+            setPhase("typing");
+        }, 0);
+
+        return () => clearTimeout(timeout);
     }, [text]);
 
     useEffect(() => {
@@ -24,19 +29,19 @@ export function Typewriter({ text }: TypewriterProps) {
                     setDisplayed(text.slice(0, displayed.length + 1));
                 }, 50);
             } else {
-                timeout = setTimeout(() => {setPhase("pause");}, 2000);
+                timeout = setTimeout(() => { setPhase("pause"); }, 2000);
             }
         }
 
         if (phase === "pause") {
-            timeout = setTimeout(() => {setPhase("erasing");}, 400);
+            timeout = setTimeout(() => { setPhase("erasing"); }, 400);
         }
 
         if (phase === "erasing") {
             if (displayed.length > 0) {
-                timeout = setTimeout(() => {setDisplayed(displayed.slice(0, -1));}, 30);
+                timeout = setTimeout(() => { setDisplayed(displayed.slice(0, -1)); }, 30);
             } else {
-                timeout = setTimeout(() => {setPhase("typing");}, 500);
+                timeout = setTimeout(() => { setPhase("typing"); }, 500);
             }
         }
 
