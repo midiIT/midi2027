@@ -1,3 +1,6 @@
+import instagramIcon from "../../public/icons/instagramIcon.svg";
+import tiktokIcon from "../../public/icons/tiktokIcon.svg";
+
 export type Platform = "instagram" | "tiktok";
 export type Filter = "all" | Platform;
 
@@ -20,12 +23,12 @@ export const filterOptions: Filter[] = ["all", ...platformOptions];
 export const platforms: Record<Platform, { title: string; icon: string; profile: string }> = {
     instagram: {
         title: "Instagram",
-        icon: "/icons/instagramIcon.svg",
+        icon: instagramIcon.src,
         profile: "https://www.instagram.com/midi.lt/",
     },
     tiktok: {
         title: "TikTok",
-        icon: "/icons/tiktokIcon.svg",
+        icon: tiktokIcon.src,
         profile: "https://www.tiktok.com/@midi.lt",
     },
 };

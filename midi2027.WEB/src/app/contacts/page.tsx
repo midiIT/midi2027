@@ -1,6 +1,13 @@
 "use client";
 
-import Image from "next/image";
+import Image, { type StaticImageData } from "next/image";
+import instagramIcon from "../../../public/icons/instagramIcon.svg";
+import youtubeIcon from "../../../public/icons/youtubeIcon.svg";
+import facebookIcon from "../../../public/icons/facebookIcon.svg";
+import mailIcon from "../../../public/icons/mailIcon.svg";
+import linkedinIcon from "../../../public/icons/linkedinIcon.svg";
+import tiktokIcon from "../../../public/icons/tiktokIcon.svg";
+import addIcon from "../../../public/icons/addIcon.svg";
 import { useEffect, useState } from "react";
 import { useLanguage } from "@/context/LanguageContext";
 import { text } from "@/app/contacts/pageText";
@@ -9,7 +16,7 @@ type Brand = "email" | "instagram" | "facebook" | "linkedin" | "tiktok" | "youtu
 
 type ContactCardProps = {
   href: string;
-  iconPath: string;
+  iconPath: string | StaticImageData;
   title: string;
   description: string;
   handle: string;
@@ -111,17 +118,17 @@ export default function ContactsPage() {
   const [openFaq, setOpenFaq] = useState<number | null>(null);
 
   const operaContacts = [
-    { href: "https://www.instagram.com/roko_operos/", iconPath: "/icons/instagramIcon.svg", brand: "instagram" as const, ...t.cards.operaInstagram },
-    { href: "https://www.youtube.com/@midirokooperos", iconPath: "/icons/youtubeIcon.svg", brand: "youtube" as const, ...t.cards.operaYoutube },
-    { href: "https://www.facebook.com/pages/MIDI-Roko-Operos/106318422731048", iconPath: "/icons/facebookIcon.svg", brand: "facebook" as const, ...t.cards.operaFacebook },
+    { href: "https://www.instagram.com/roko_operos/", iconPath: instagramIcon, brand: "instagram" as const, ...t.cards.operaInstagram },
+    { href: "https://www.youtube.com/@midirokooperos", iconPath: youtubeIcon, brand: "youtube" as const, ...t.cards.operaYoutube },
+    { href: "https://www.facebook.com/pages/MIDI-Roko-Operos/106318422731048", iconPath: facebookIcon, brand: "facebook" as const, ...t.cards.operaFacebook },
   ];
   const contacts = [
-    { href: "mailto:info@midi.lt", iconPath: "/icons/mailIcon.svg", brand: "email" as const, ...t.cards.email },
-    { href: "https://www.instagram.com/midi.lt/", iconPath: "/icons/instagramIcon.svg", brand: "instagram" as const, ...t.cards.instagram },
-    { href: "https://www.facebook.com/midi.lt", iconPath: "/icons/facebookIcon.svg", brand: "facebook" as const, ...t.cards.facebook },
-    { href: "https://www.linkedin.com/company/midi-lt/", iconPath: "/icons/linkedinIcon.svg", brand: "linkedin" as const, ...t.cards.linkedin },
-    { href: "https://www.tiktok.com/@midi.lt", iconPath: "/icons/tiktokIcon.svg", brand: "tiktok" as const, ...t.cards.tiktok },
-    { href: "https://www.youtube.com/@TheMiDiTV/videos", iconPath: "/icons/youtubeIcon.svg", brand: "youtube" as const, ...t.cards.youtube },
+    { href: "mailto:info@midi.lt", iconPath: mailIcon, brand: "email" as const, ...t.cards.email },
+    { href: "https://www.instagram.com/midi.lt/", iconPath: instagramIcon, brand: "instagram" as const, ...t.cards.instagram },
+    { href: "https://www.facebook.com/midi.lt", iconPath: facebookIcon, brand: "facebook" as const, ...t.cards.facebook },
+    { href: "https://www.linkedin.com/company/midi-lt/", iconPath: linkedinIcon, brand: "linkedin" as const, ...t.cards.linkedin },
+    { href: "https://www.tiktok.com/@midi.lt", iconPath: tiktokIcon, brand: "tiktok" as const, ...t.cards.tiktok },
+    { href: "https://www.youtube.com/@TheMiDiTV/videos", iconPath: youtubeIcon, brand: "youtube" as const, ...t.cards.youtube },
   ];
 
   return (
@@ -181,7 +188,7 @@ export default function ContactsPage() {
                     <span>{item.question}</span>
                     <span aria-hidden="true" className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-white/25">
                       <Image
-                        src={isOpen ? "/closeIcon.svg" : "/icons/addIcon.svg"}
+                        src={isOpen ? "/closeIcon.svg" : addIcon}
                         alt=""
                         width={18}
                         height={18}
