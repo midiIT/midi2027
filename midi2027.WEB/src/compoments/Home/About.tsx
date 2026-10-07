@@ -1,7 +1,7 @@
 ﻿"use client";
 
-import AboutPillars from './AboutPillars';
 import HistorySlideshow from './HistorySlideShow';
+import AboutPillars from './AboutPillars';
 import { aboutText } from './AboutText';
 import { useLanguage } from '@/context/LanguageContext';
 
@@ -10,7 +10,7 @@ export default function About() {
     const t = aboutText[lang];
 
     return (
-        <div className="bg-white px-12 pt-24 pb-20">
+        <div className="bg-white px-6 sm:px-12 pt-24 pb-20">
             <div className="max-w-[1100px] mx-auto">
                 {/* Section header */}
                 <div className="flex items-end justify-between flex-wrap gap-6 mb-16">

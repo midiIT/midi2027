@@ -18,6 +18,7 @@ const links = [
     { href: "/", label: { en: "Home", lt: "Pagrindinis" } },
     { href: "/contacts", label: { en: "Contacts", lt: "Kontaktai" } },
     { href: "/activities", label: { en: "Activities", lt: "Veiklos" } },
+    { href: "/archives", label: { en: "Archives", lt: "Archyvai" } },
 ];
 
 export function Header() {
@@ -28,7 +29,7 @@ export function Header() {
     const pathname = usePathname();
 
     return (
-        <header className="fixed top-0 left-0 right-0 z-50 flex h-17 items-center justify-between border-b border-[#dcdcdc] bg-white px-10">
+        <header className="fixed top-0 left-0 right-0 z-50 flex h-17 items-center justify-between border-b border-[#dcdcdc] bg-white px-4 sm:px-10">
             <Link href="/" className="flex items-center gap-3">
                 <Image
                     src={logoMidiBlack}
@@ -48,7 +49,7 @@ export function Header() {
                 </div>
             </Link>
 
-            <div className="flex items-center gap-6 min-[550px]:hidden">
+            <div className="flex items-center gap-6 min-[900px]:hidden">
 
                 <LangToggle />
 
@@ -72,7 +73,7 @@ export function Header() {
                 onClose={() => setMenuOpen(false)}
             />
 
-            <div className="flex items-center gap-2 max-[550px]:hidden">
+            <div className="flex items-center gap-2 max-[900px]:hidden">
                 <nav className="flex gap-1 ">
                     {links.map(({ href, label }) => {
                         const active = pathname === href;

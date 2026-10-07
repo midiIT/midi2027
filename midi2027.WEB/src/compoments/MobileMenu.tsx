@@ -26,11 +26,11 @@ export function MobileMenu({
     onClose,
 }: MobileMenuProps) {
     const pathname = usePathname();
-    const { lang, setLang } = useLanguage();
+    const { lang } = useLanguage();
 
     return (
         <nav
-            className={`fixed top-17 left-0 right-0 z-40 overflow-hidden bg-white border-b border-zinc-200 transition-all duration-300 min-[700px]:hidden
+            className={`fixed top-17 left-0 right-0 z-40 overflow-hidden bg-white border-b border-zinc-200 transition-all duration-300 min-[900px]:hidden
                 ${menuOpen
                     ? "max-h-80 shadow-lg"
                     : "max-h-0 shadow-none"

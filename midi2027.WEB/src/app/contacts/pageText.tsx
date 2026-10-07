@@ -10,7 +10,7 @@ type ContactsPageText = {
   intro: string;
   channelsEyebrow: string;
   stats: Array<{ value: number; label: string }>;
-  cards: Record<"email" | "instagram" | "facebook" | "linkedin" | "tiktok", ContactCardText>;
+  cards: Record<"email" | "instagram" | "facebook" | "linkedin" | "tiktok" | "operaInstagram" | "operaYoutube", ContactCardText>;
   faq: { eyebrow: string; title: string; intro: string; items: FaqItem[] };
 };
 
@@ -28,6 +28,8 @@ export const text: Record<Lang, ContactsPageText> = {
       { value: 100, label: "Partner companies" },
     ],
     cards: {
+      operaInstagram: { title: "Rock Opera · Instagram", description: "Rehearsals, backstage moments and news from the MIDI Rock Opera.", handle: "@roko_operos" },
+      operaYoutube: { title: "Rock Opera · YouTube", description: "Watch MIDI Rock Opera performances and videos.", handle: "@midirokooperos" },
       email: { title: "Email us", description: "Best for formal enquiries, partnerships, and sponsorships.", handle: "info@midi.lt" },
       instagram: { title: "Instagram", description: "Follow our updates, event highlights, and behind-the-scenes.", handle: "@midi.lt" },
       facebook: { title: "Facebook", description: "Event announcements and community discussions.", handle: "MIDI" },
@@ -41,9 +43,9 @@ export const text: Record<Lang, ContactsPageText> = {
       items: [
         { question: "What is MIDI?", answer: "MIDI — Mathematics and Informatics Days — is an annual student event at Vilnius University's Faculty of Mathematics and Informatics, connecting students with industry, academia, and the broader tech community." },
         { question: "How can our company get involved?", answer: "There are several ways: sponsorship packages, speaking slots, workshop hosting, and career fair participation. Reach out via email and we will send you our partnership deck." },
-        { question: "When does MIDI 2027 take place?", answer: "The exact dates are being finalised. Follow our social channels to be the first to know when they are announced." },
+        { question: "When does MIDI 2027 take place?", answer: "MIDI 2027 starts on 10 April 2027. The programme and individual event times will be announced on this website and our social channels." },
         { question: "Who organises MIDI?", answer: "MIDI is organised by VU SA MIF — the student representation body of the Faculty of Mathematics and Informatics at Vilnius University." },
-        { question: "Is participation free for students?", answer: "Yes — MIDI events are free for students. Some workshops may require prior registration due to limited capacity." },
+        { question: "Is participation free for students?", answer: "Some MIDI events are free, while others require a paid ticket. Prices and registration details will be listed in each event’s description." },
       ],
     },
   },
@@ -60,6 +62,8 @@ export const text: Record<Lang, ContactsPageText> = {
       { value: 100, label: "Įmonių partnerių" },
     ],
     cards: {
+      operaInstagram: { title: "Roko opera · Instagram", description: "MIDI Roko operos repeticijos, užkulisiai ir naujienos.", handle: "@roko_operos" },
+      operaYoutube: { title: "Roko opera · YouTube", description: "Žiūrėkite MIDI Roko operų pasirodymus ir vaizdo įrašus.", handle: "@midirokooperos" },
       email: { title: "El. paštas", description: "Oficialioms užklausoms, partnerystėms ir rėmimo pasiūlymams.", handle: "info@midi.lt" },
       instagram: { title: "Instagram", description: "Sekite naujienas, renginio akimirkas ir pasiruošimo užkulisius.", handle: "@midi.lt" },
       facebook: { title: "Facebook", description: "Renginių pranešimai ir bendruomenės diskusijos.", handle: "MIDI" },
@@ -73,9 +77,9 @@ export const text: Record<Lang, ContactsPageText> = {
       items: [
         { question: "Kas yra MIDI?", answer: "MIDI — Matematikų ir Informatikų Dienos — yra kasmetinis Vilniaus universiteto Matematikos ir informatikos fakulteto studentų renginys, jungiantis studentus, verslą, akademinę bendruomenę ir technologijų sektorių." },
         { question: "Kaip mūsų įmonė gali prisidėti?", answer: "Prisidėti galima remiant renginį, skaitant pranešimus, organizuojant dirbtuves ar dalyvaujant karjeros mugėje. Parašykite mums el. paštu ir atsiųsime partnerystės pasiūlymą." },
-        { question: "Kada vyks MIDI 2027?", answer: "Tikslios datos dar derinamos. Sekite mūsų socialinius kanalus ir apie jas sužinosite pirmieji." },
+        { question: "Kada vyks MIDI 2027?", answer: "MIDI 2027 prasidės 2027 m. balandžio 10 d. Renginių programą ir atskirų renginių laikus paskelbsime svetainėje bei socialiniuose tinkluose." },
         { question: "Kas organizuoja MIDI?", answer: "MIDI organizuoja VU SA MIF — Vilniaus universiteto Matematikos ir informatikos fakulteto studentų atstovybė." },
-        { question: "Ar dalyvavimas studentams nemokamas?", answer: "Taip, MIDI renginiai studentams yra nemokami. Į kai kurias dirbtuves dėl riboto vietų skaičiaus gali reikėti registruotis iš anksto." },
+        { question: "Ar dalyvavimas studentams nemokamas?", answer: "Dalis MIDI renginių yra nemokami, o dalis – mokami. Kainas ir registracijos informaciją skelbsime prie kiekvieno renginio." },
       ],
     },
   },

@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { useLanguage } from "@/context/LanguageContext";
 import { text } from "@/app/contacts/pageText";
 
-type Brand = "email" | "instagram" | "facebook" | "linkedin" | "tiktok";
+type Brand = "email" | "instagram" | "facebook" | "linkedin" | "tiktok" | "youtube";
 
 type ContactCardProps = {
   href: string;
@@ -21,6 +21,7 @@ const brandHover: Record<Brand, string> = {
   instagram: "hover:border-[#c13584] hover:bg-[linear-gradient(135deg,#833ab4,#e1306c,#f77737)]",
   facebook: "hover:border-[#1877f2] hover:bg-[#1877f2]",
   linkedin: "hover:border-[#0a66c2] hover:bg-[#0a66c2]",
+  youtube: "hover:border-[#ff0000] hover:bg-[#ff0000]",
   tiktok: "hover:border-[#111111] hover:bg-[#111111]",
 };
 
@@ -109,6 +110,10 @@ export default function ContactsPage() {
   const t = text[lang];
   const [openFaq, setOpenFaq] = useState<number | null>(null);
 
+  const operaContacts = [
+    { href: "https://www.instagram.com/roko_operos/", iconPath: "/icons/instagramIcon.svg", brand: "instagram" as const, ...t.cards.operaInstagram },
+    { href: "https://www.youtube.com/@midirokooperos", iconPath: "/icons/youtubeIcon.svg", brand: "youtube" as const, ...t.cards.operaYoutube },
+  ];
   const contacts = [
     { href: "mailto:info@midi.lt", iconPath: "/icons/mailIcon.svg", brand: "email" as const, ...t.cards.email },
     { href: "https://www.instagram.com/midi.lt/", iconPath: "/icons/instagramIcon.svg", brand: "instagram" as const, ...t.cards.instagram },
@@ -144,6 +149,10 @@ export default function ContactsPage() {
           <p className="mb-10 text-xs font-bold uppercase tracking-[0.25em] text-[#0075b5]">{t.channelsEyebrow}</p>
           <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3 lg:gap-5">
             {contacts.map((contact) => <ContactCard key={contact.title} {...contact} />)}
+          </div>
+          <h2 className="mb-6 mt-14 text-2xl font-bold text-[#404041]">{lang === "lt" ? "MIDI Roko opera" : "MIDI Rock Opera"}</h2>
+          <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
+            {operaContacts.map((contact) => <ContactCard key={contact.title} {...contact} />)}
           </div>
         </div>
       </section>
