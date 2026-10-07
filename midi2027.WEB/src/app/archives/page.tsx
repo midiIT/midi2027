@@ -28,7 +28,7 @@ export default function ArchivesPage() {
             <section className="mx-auto max-w-[1260px] px-6 py-12 sm:px-10 sm:py-16" aria-labelledby="archive-heading">
                 <div className="mb-8 flex items-center justify-between border-b border-[#102c3c]/15 pb-5">
                     <h2 id="archive-heading" className="text-xl font-bold">{t.collection}</h2>
-                    <span className="text-sm tabular-nums text-[#404041]/50">01 — 10</span>
+                    <span className="text-sm tabular-nums text-[#404041]/50">01 — 11</span>
                 </div>
                 <ul className="grid grid-cols-1 gap-7 sm:grid-cols-2 lg:grid-cols-3">
                     {years.map((year, index) => (
@@ -49,6 +49,36 @@ export default function ArchivesPage() {
                             </a>
                         </li>
                     ))}
+                    <li>
+                        <a href="https://midi.lt/pagrindinis" className="group block h-full overflow-hidden rounded-xl border border-[#102c3c]/10 bg-white shadow-sm transition-[transform,box-shadow] duration-200 hover:-translate-y-1 hover:shadow-xl focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#0075b5] motion-reduce:transform-none">
+                            <div className="flex items-center gap-1.5 border-b border-[#102c3c]/10 bg-white px-4 py-3" aria-hidden="true">
+                                <span className="h-1.5 w-1.5 rounded-full bg-[#0075b5]/25" /><span className="h-1.5 w-1.5 rounded-full bg-[#0075b5]/15" /><span className="h-1.5 w-1.5 rounded-full bg-[#0075b5]/10" />
+                                <span className="ml-3 text-[11px] tracking-wide text-[#404041]/45">midi.lt/pagrindinis</span><span className="ml-auto text-[10px] text-[#404041]/35">11</span>
+                            </div>
+                            <div className="relative aspect-[16/10] overflow-hidden bg-[#e8edf1]">
+                                <Image src="/archives/midi-pagrindinis.webp" alt={lang === "lt" ? "MIDI senosios pagrindinės svetainės peržiūra" : "MIDI old main website preview"} fill sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 390px" className="object-cover object-top transition-transform duration-500 group-hover:scale-[1.035] motion-reduce:transform-none" />
+                            </div>
+                            <div className="flex items-center justify-between gap-4 p-6">
+                                <div><p className="text-[10px] font-bold tracking-[0.2em] text-[#404041]/45">MIDI</p><h3 className="mt-1 text-2xl font-extrabold tracking-tight text-[#102c3c]">{lang === "lt" ? "MIDI Pagrindinis" : "MIDI Main"}</h3></div>
+                                <span className="flex items-center gap-3 text-xs font-semibold text-[#0075b5]">{t.open}<span aria-hidden="true" className="flex h-9 w-9 items-center justify-center rounded-full bg-[#e8f4fb] text-lg transition-colors group-hover:bg-[#0075b5] group-hover:text-white">↗</span></span>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://rokooperos.midi.lt/" className="group block h-full overflow-hidden rounded-xl border border-[#102c3c]/10 bg-white shadow-sm transition-[transform,box-shadow] duration-200 hover:-translate-y-1 hover:shadow-xl focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#0075b5] motion-reduce:transform-none">
+                            <div className="flex items-center gap-1.5 border-b border-[#102c3c]/10 bg-white px-4 py-3" aria-hidden="true">
+                                <span className="h-1.5 w-1.5 rounded-full bg-[#0075b5]/25" /><span className="h-1.5 w-1.5 rounded-full bg-[#0075b5]/15" /><span className="h-1.5 w-1.5 rounded-full bg-[#0075b5]/10" />
+                                <span className="ml-3 text-[11px] tracking-wide text-[#404041]/45">rokooperos.midi.lt</span><span className="ml-auto text-[10px] text-[#404041]/35">11</span>
+                            </div>
+                            <div className="relative aspect-[16/10] overflow-hidden bg-[#e8edf1]">
+                                <Image src="/archives/roko-opera.webp" alt={lang === "lt" ? "MIDI Roko operos svetainės peržiūra" : "MIDI Rock Opera website preview"} fill sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 390px" className="object-cover object-top transition-transform duration-500 group-hover:scale-[1.035] motion-reduce:transform-none" />
+                            </div>
+                            <div className="flex items-center justify-between gap-4 p-6">
+                                <div><p className="text-[10px] font-bold tracking-[0.2em] text-[#404041]/45">MIDI</p><h3 className="mt-1 text-2xl font-extrabold tracking-tight text-[#102c3c]">{lang === "lt" ? "Roko opera" : "Rock Opera"}</h3></div>
+                                <span className="flex items-center gap-3 text-xs font-semibold text-[#0075b5]">{t.open}<span aria-hidden="true" className="flex h-9 w-9 items-center justify-center rounded-full bg-[#e8f4fb] text-lg transition-colors group-hover:bg-[#0075b5] group-hover:text-white">↗</span></span>
+                            </div>
+                        </a>
+                    </li>
                 </ul>
                 <p className="mt-8 text-sm text-[#404041]/55">{t.note}</p>
             </section>
