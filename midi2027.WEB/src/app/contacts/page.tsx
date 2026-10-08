@@ -123,7 +123,7 @@ export default function ContactsPage() {
     { href: "https://www.facebook.com/pages/MIDI-Roko-Operos/106318422731048", iconPath: facebookIcon, brand: "facebook" as const, ...t.cards.operaFacebook },
   ];
   const contacts = [
-    { href: "mailto:info@midi.lt", iconPath: mailIcon, brand: "email" as const, ...t.cards.email },
+    { href: "mailto:marketingas@midi.lt", iconPath: mailIcon, brand: "email" as const, ...t.cards.email },
     { href: "https://www.instagram.com/midi.lt/", iconPath: instagramIcon, brand: "instagram" as const, ...t.cards.instagram },
     { href: "https://www.facebook.com/midi.lt", iconPath: facebookIcon, brand: "facebook" as const, ...t.cards.facebook },
     { href: "https://www.linkedin.com/company/midi-lt/", iconPath: linkedinIcon, brand: "linkedin" as const, ...t.cards.linkedin },
